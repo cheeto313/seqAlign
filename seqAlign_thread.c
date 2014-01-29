@@ -145,7 +145,19 @@ void freeMatrixMemory(int width, int height) {
 */
 void doWork() {
 
-	// TO BE IMPLEMENTED
+
+}
+
+/*
+	Creates a thread
+		-int count: Thread ID and doWork() param
+*/
+void createThread(int count) {
+	//thread structure | creation
+	pthread_t r_thread;
+	th_id = pthread_create(&r_thread, NULL, doWork(), count);
+
+	return th_id; 
 }
 
 void compute(char* seq1, char* seq2, int numThreads) {
