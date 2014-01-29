@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <pthread.h>
 
 #define GAP_PENALTY 10
 #define BLOCKSIZE 1000
@@ -139,7 +140,9 @@ void freeMatrixMemory(int width, int height) {
 	free(dpMatrix);
 }
 
-/* Compute the values for the DPM */
+/*	Compute the values for the DPM 
+	Appears to use the Needleman–Wunsch algorithm for calculation
+*/
 void doWork() {
 
 	// TO BE IMPLEMENTED
