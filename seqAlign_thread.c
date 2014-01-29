@@ -144,13 +144,50 @@ void freeMatrixMemory(int width, int height) {
 /*	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
-void doWork() {
+void doWork(int row) {
 
+	dpMatrix[row+1][counters[row]+1] = computeSimilarity(row, counters[row], seq1[row], seq2[counters[row]]);
 
-	if(/*CHECK IF THE THREAD SHOULD BE EXECUTED*/){
-		pthread_exit(NULL);
-	}
+	//If all work is done 
+	//Then cancel the last thread and return the matrix
+	if((counters[getpid()] = strlen(seq1)) && (getpid() = strlen(seq2))){
+	 	pthread_cancel(pthread_self());
+		break;
+	}//if
+
+	increment();
 }
+
+void increment(){
+
+	//if a new thread can be made
+	if ((counters[getpid()] == 0) && (getpid() <= strlen(seq1))){
+		createThread();
+	}//if
+
+	counters[getpid()]++;
+
+	//If parent thread is still working on the data above
+	//Then lock itself
+	if((counters[getpid()] >= counters[getpid()-1]) && (getpid() != 0)){
+		pthread_mutex_lock(pthread_self());
+	}//if
+
+	//If child thread is locked and can be doing work
+	//Then unlock child
+	if((counters[getpid()] > counters[getpid()+1]) && (getpid() != strlen(seq1))){
+		pthread_mutex_unlock(pthread_getspecific(getpid()+1));
+	}//if
+
+	//If the count is out done with all of the columns 
+	//Then cancel the thread
+	if((counters[getpid()] > strlen(seq2)){
+	 	pthread_cancel(pthread_self());
+	}//if
+
+
+}//increment
+
 
 //method to add to the linked list
 void addVal(struct node** head, int val) {
@@ -180,17 +217,30 @@ void getPos(struct node* head, int pos) {
 	//need to implement what happens if the index is not found
 }
 
+void generateGaps(){
+	//placing the gaps for the first column
+	for (int i = 0; i < strlen(seq1); i++){
+		dpMatrix[0][i] = i * (-1 * GAP_PENALTY);
+	}//for i 
+
+	//placing the gaps for the first row
+	for (int i = 0; j < strlen(seq2); i++){
+		dpMatrix[i][0] = i * (-1 * GAP_PENALTY);
+	}//for i
+}//generateGaps
+
 int main(int argc, char* argv[]) {
 
 	if (argc < 3) {
 		fprintf(stderr,
-				"Usage: seqAlign_thread <data file> <# of threads> [output file]\n");
+		"Usage: seqAlign_thread <data file> <# of threads> [output file]\n");
 		exit(EXIT_FAILURE);
 	}
 
 	FILE * fp;
 	size_t len = 0;
 	fp = fopen(argv[1], "r");
+	
 	if (fp == NULL ) {
 		fprintf(stderr, "File not found: %s\n", argv[1]);
 		exit(EXIT_FAILURE);
@@ -205,20 +255,22 @@ int main(int argc, char* argv[]) {
 	trim(seq2); // getline() includes newline
 
 	initMatrix(strlen(seq1), strlen(seq2));
-	compute(seq1, seq2, threads);
 
-	//create the dynamic array here
+	generateGaps()
+
+	//creates the first unique thread and starts the computing process
+
 
 	if (argc == 4) {
 		printf("Writing to file (may take some time)\n");
 		char* filename = argv[3];
 		outputMatrix(filename, strlen(seq1), strlen(seq2));
+		freeMatrixMemory(strlen(seq1), strlen(seq2));
+		free(seq1);
+		free(seq2);
+		exit(EXIT_SUCCESS);
 	}
 
-	freeMatrixMemory(strlen(seq1), strlen(seq2));
-	free(seq1);
-	free(seq2);
+}//main
 
-	exit(EXIT_SUCCESS);
-}
 
