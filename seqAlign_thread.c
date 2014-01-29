@@ -26,10 +26,11 @@ typedef struct workItem {
 	int y;
 } workItem_t;
 
-typedef struct node {
-	workItem_t item;
-	struct node *next;
-} workQueue_t;
+//structed for linked list
+struct node {
+	int row;
+	struct node* next;
+};
 
 long** dpMatrix;
 
@@ -146,60 +147,37 @@ void freeMatrixMemory(int width, int height) {
 void doWork() {
 
 
-}
-
-/*
-	Creates a thread
-		-int count: Thread ID and doWork() param
-*/
-void createThread(int count) {
-	//thread structure | creation
-	pthread_t r_thread;
-	th_id = pthread_create(&r_thread, NULL, doWork(), count);
-
-	return th_id; 
-}
-
-void compute(char* seq1, char* seq2, int numThreads) {
-
-	// Create work items
-	numBlocks_x = (strlen(seq1) + 1) / BLOCKSIZE;
-	if (numBlocks_x * BLOCKSIZE < strlen(seq1) + 1)
-		numBlocks_x++;
-
-	numBlocks_y = (strlen(seq2) + 1) / BLOCKSIZE;
-	if (numBlocks_y * BLOCKSIZE < strlen(seq2) + 1)
-		numBlocks_y++;
-
-	work = calloc(numBlocks_x, sizeof(workItem_t*));
-	queued = calloc(numBlocks_x, sizeof(int*));
-	for (int i = 0; i < numBlocks_x; i++) {
-		work[i] = calloc(numBlocks_y, sizeof(workItem_t));
-		queued[i] = calloc(numBlocks_y, sizeof(int));
+	if(/*CHECK IF THE THREAD SHOULD BE EXECUTED*/){
+		pthread_exit(NULL);
 	}
+}
 
-	for (int i = 0; i < numBlocks_x; i++) {
-		for (int j = 0; j < numBlocks_y; j++) {
-			work[i][j].fromX = i * BLOCKSIZE;
-			work[i][j].fromY = j * BLOCKSIZE;
-			work[i][j].toX =
-					((i + 1) * BLOCKSIZE > strlen(seq1) + 1) ?
-							strlen(seq1) + 1 : (i + 1) * BLOCKSIZE;
-			work[i][j].toY =
-					((j + 1) * BLOCKSIZE > strlen(seq2) + 1) ?
-							(strlen(seq2) + 1) : (j + 1) * BLOCKSIZE;
-			work[i][j].x = j;
-			work[i][j].y = i;
+//method to add to the linked list
+void addVal(struct node** head, int val) {
+	//allocate memory
+	struct node* newNode = (struct node*) malloc(sizeof(struct node));
+	//add the new element to the linked list
+	newNode->row = val;
+
+	newNode->next = (*head);
+	(*head) = newNode;
+}
+
+//returns the element at a certain position ona linked list
+void getPos(struct node* head, int pos) {
+	struct node* cur = head;
+
+	int count = 0;
+
+	while(count != NULL){
+		//loop until index is found, then return
+		if(count ==  pos){
+			return(cur->index);
 		}
+		count++;
+		cur = cur->next;
 	}
-
-	int workQueueSize = (numBlocks_x > numBlocks_y) ? numBlocks_x : numBlocks_y;
-
-	workQueue = malloc(sizeof(struct node));
-	workQueue->item = work[0][0];
-	workQueue->next = NULL;
-	queued[0][0] = 1;
-	doWork();
+	//need to implement what happens if the index is not found
 }
 
 int main(int argc, char* argv[]) {
@@ -228,6 +206,8 @@ int main(int argc, char* argv[]) {
 
 	initMatrix(strlen(seq1), strlen(seq2));
 	compute(seq1, seq2, threads);
+
+	//create the dynamic array here
 
 	if (argc == 4) {
 		printf("Writing to file (may take some time)\n");
