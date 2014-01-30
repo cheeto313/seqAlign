@@ -324,7 +324,7 @@ int main(int argc, char* argv[]) {
     addVal(&head, 1);
 	addVal(&th_head, 1);
 
-    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
+    rc = pthread_create(thread_id, NULL, doWork, (void*)t);  
 
     
 
