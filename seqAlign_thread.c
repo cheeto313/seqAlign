@@ -171,7 +171,7 @@ void doWork(void* data) {
 
 void increment(){
 
-	incValHead(&head, getPos(&head, getpid()));
+	incVal(&head, getPos(&head, getpid()));
 
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
@@ -257,7 +257,7 @@ int getPos(struct node* head, int pos) {
 }
 
 //increments a value in the linked list by one
-void incValHead(struct node* head, int pos){
+void incVal(struct node* head, int pos){
 	int temp;
 
 		//check for null, if it is make row 1
@@ -271,19 +271,6 @@ void incValHead(struct node* head, int pos){
 		}		
 }
 
-//increments a value in the linked list by one
-void incValTh_Head(struct node* th_head, int pos){
-	int temp;
-		//check for null, if it is make row 1
-		if((head->row) != NULL){
-			temp = head->pid;
-			temp++;
-			head->pid = temp;
-		} else {
-			temp = 1;
-			head->pid = temp;
-		}	
-}
 
 void generateGaps(){
 	//placing the gaps for the first column
