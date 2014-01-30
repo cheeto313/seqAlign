@@ -141,7 +141,8 @@ void doWork() {
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
 	if((getPos(&head, getpid()) == strlen(seq1)) && (getpid() == strlen(seq2))){
-	 	pthread_cancel(pthread_self());
+	 	//pthread_cancel(pthread_self());
+	 	pthread_exit(NULL);
 	}//if
 
 	increment();
@@ -153,8 +154,7 @@ void increment(){
 
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
-
-
+		pthread_create(getpid()+1, NULL, doWork, null); 
 	}//if
 
 	//If parent thread is still working on the data above
@@ -172,7 +172,8 @@ void increment(){
 	//If the count is out done with all of the columns 
 	//Then cancel the thread
 	if(getPos(&head, getpid()) > strlen(seq2)){
-	 	pthread_cancel(pthread_self());
+	 	//pthread_cancel(pthread_self());
+	 	pthread_exit(NULL);
 	}//if
 /*
 Linked List Use examples
@@ -285,7 +286,7 @@ int main(int argc, char* argv[]) {
 	generateGaps();
 
 	//creates the first unique thread and starts the computing process
-
+	pthread_create(1, NULL, doWork, null); 
 
 	if (argc == 3) {
 		printf("Writing to file (may take some time)\n");
