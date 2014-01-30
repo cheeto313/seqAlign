@@ -306,7 +306,7 @@ int main(int argc, char* argv[]) {
 
 	//creates the first unique thread and starts the computing process
 	int        rc;         	/* return value                           */
-    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
+    pthread_t  thread_id = 1;     	/* thread's ID (just an integer)          */
     int        t = 11;  /* data passed to the new thread          */
 
     /* create a new thread that will execute 'PrintHello' */
