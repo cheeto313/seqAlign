@@ -193,7 +193,7 @@ Linked List Use examples
 
 
 //method to push an element to the linked list
-void addVal(struct node **head, int val) {
+void addVal(struct node** head, int val) {
 	//allocate memory
 	if ((*head) == NULL){
 		(*head) = (struct node*) malloc(sizeof(struct node));
@@ -252,7 +252,7 @@ void generateGaps(){
 	}//for i 
 
 	//placing the gaps for the first row
-	for (int i = 0; j < strlen(seq2); i++){
+	for (int i = 0; i < strlen(seq2); i++){
 		dpMatrix[i][0] = i * (-1 * GAP_PENALTY);
 	}//for i
 }//generateGaps
