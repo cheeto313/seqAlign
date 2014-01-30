@@ -150,9 +150,11 @@ void doWork(void* data) {
     pthread_detach(pthread_self());
     printf("Hello from new thread - got %d\n", my_data);
     printf("getPid gives me %d\n", getpid());
+    printf("gettid gives me %d\n", gettid());
     printf("th_head at 0 gives me %d\n", getPos(&th_head, 0));
     printf("head at 0 gives me %d\n", getPos(&head, 0));	
-
+    printf("th_head at 1 gives me %d\n", getPos(&th_head, 1));
+    printf("head at 1 gives me %d\n", getPos(&head, 1));
     pthread_exit(NULL);			/* terminate the thread */
 
 	dpMatrix[getpid()+1][getPos(&head, getpid()+1)] = computeSimilarity(getpid(), getPos(&head, getpid()), seq1[getpid()], seq2[getPos(&head, getpid())]);
@@ -323,7 +325,7 @@ int main(int argc, char* argv[]) {
 
 	//creates the first unique thread and starts the computing process
 	int        rc;         	/* return value                           */
-    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
+    pthread_t  thread_id = 1;     	/* thread's ID (just an integer)          */
     int        t = 11;  /* data passed to the new thread          */
 
     /* create a new thread that will execute 'PrintHello' */
