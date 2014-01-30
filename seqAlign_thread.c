@@ -196,12 +196,11 @@ Linked List Use examples
 //method to push an element to the linked list
 void addVal(struct node** head, int val) {
 	//allocate memory
-	if ((head*) == NULL){
-		(head*) = (struct node*) malloc(sizeof(struct node));
-	}
+	struct node* n_node = (struct node*) malloc(sizeof(struct node));
 
-	(head*)->row = val;
-	(head*)->next = head;
+	n_node->row = n_node;
+	n_node->next = (*head);
+	(*head) = n_node;
 }
 
 //returns the element at a certain position on a linked list
