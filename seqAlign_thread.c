@@ -145,6 +145,7 @@ void doWork(void* data) {
     pthread_detach(pthread_self());
     printf("Hello from new thread - got %d\n", my_data);
     printf("getPid gives me %d\n", getpid());
+    printf("gettid gives me %d\n", gettid());
     printf("th_head at 0 gives me %d\n", getPos(&th_head, 0));
     printf("head at 0 gives me %d\n", getPos(&head, 0));	
     printf("th_head at 1 gives me %d\n", getPos(&th_head, 1));
