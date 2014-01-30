@@ -136,7 +136,7 @@ void freeMatrixMemory(int width, int height) {
 */
 void doWork() {
 
-	dpMatrix[getpid()+1][getPos(&head, getpid()+1)] = computeSimilarity(getpid(), getPos(&head, getpid()), seq1[getpid()], seq2[getPos(&head, getpid())]);
+	dpMatrix[row+1][getPos(&head, row+1)] = computeSimilarity(row, getPos(&head, row), seq1[row], seq2[getPos(&head, row)]);
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
@@ -245,6 +245,7 @@ void incVal(struct node* head, int pos){
 	head->row = temp;
 }
 
+//working
 void generateGaps(){
 	//placing the gaps for the first column
 	for (int i = 0; i < strlen(seq1); i++){
