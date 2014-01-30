@@ -135,6 +135,7 @@ void freeMatrixMemory(int width, int height) {
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
 void doWork() {
+	pthread_exit(NULL);
 
 	dpMatrix[row+1][getPos(&head, row+1)] = computeSimilarity(row, getPos(&head, row), seq1[row], seq2[getPos(&head, row)]);
 
@@ -145,7 +146,7 @@ void doWork() {
 	 	pthread_exit(NULL);
 	}//if
 
-	increment();
+	//increment();
 }
 
 void increment(){
