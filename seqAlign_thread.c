@@ -324,7 +324,7 @@ int main(int argc, char* argv[]) {
     addVal(&head, 1);
 	addVal(&th_head, 1);
 
-    rc = pthread_create(thread_id, NULL, doWork, (void*)t);  
+    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
 
     
 
@@ -334,9 +334,8 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
 
-    printf("\n Created new thread (%d) ... \n", thread_id);
+    printf("Created new thread (%d) ... \n", thread_id);
     
-    pthread_exit(NULL);		/* terminate the thread */
 
 	if (argc == 3) {
 		printf("Writing to file (may take some time)\n");
