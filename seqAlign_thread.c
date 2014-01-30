@@ -26,11 +26,14 @@ typedef struct workItem {
 	int y;
 } workItem_t;
 
-//structed for linked list
+//struct for linked list
 struct node {
 	int row;
 	struct node* next;
 };
+
+//the actual node
+struct *node head = NULL;
 
 long** dpMatrix;
 
@@ -184,8 +187,22 @@ void increment(){
 	if((counters[getpid()] > strlen(seq2)){
 	 	pthread_cancel(pthread_self());
 	}//if
+/*
+Linked List Use examples
+	Add element
+		addVal(&head,4);
+	Get Nth element
+		int derp = getPos(&head,2); //return element at index 2
 
-
+	e.g.
+	addVal(&head,4);
+	addVal(&head,1);
+	addVal(&head,3);
+	addVal(&head,0);
+	addVal(&head,6);
+	Constructs: 
+	6->0->3->1->4
+*/
 }//increment
 
 
@@ -201,7 +218,7 @@ void addVal(struct node** head, int val) {
 }
 
 //returns the element at a certain position ona linked list
-void getPos(struct node* head, int pos) {
+int getPos(struct node* head, int pos) {
 	struct node* cur = head;
 
 	int count = 0;
@@ -209,7 +226,7 @@ void getPos(struct node* head, int pos) {
 	while(count != NULL){
 		//loop until index is found, then return
 		if(count ==  pos){
-			return(cur->index);
+			return(cur->row);
 		}
 		count++;
 		cur = cur->next;
