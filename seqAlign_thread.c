@@ -1,9 +1,9 @@
 /*
- * seqAlign.c
- *
- *  Created on: Jan 18, 2014
- *      Author: John
- */
+* seqAlign.c
+*
+*  Created on: Jan 18, 2014
+*      Author: John
+*/
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -293,12 +293,11 @@ int main(int argc, char* argv[]) {
 		printf("Writing to file (may take some time)\n");
 		char* filename = argv[3];
 		outputMatrix(filename, strlen(seq1), strlen(seq2));
+	}
 		freeMatrixMemory(strlen(seq1), strlen(seq2));
 		free(seq1);
 		free(seq2);
 		exit(EXIT_SUCCESS);
-	}
-
 }//main
 
 
