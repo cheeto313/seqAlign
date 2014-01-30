@@ -19,9 +19,12 @@ int similarity[6][6] = { { 16, 0, 0, 0, 0, 0 }, { 0, 20, 0, 0, 0, 0 }, { 0, 0,
 
 //struct for linked list
 struct node {
-	int row;
+	int index;
 	struct node* next;
 };
+
+//node for the PID tracking
+struct node* th_head = NULL;
 
 //the actual node
 struct node* head = NULL;
@@ -161,19 +164,19 @@ void increment(){
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
 		
-	int        rc;         	/* return value                           */
-    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
-    int        t         = 11;  /* data passed to the new thread          */
+		int        rc;         	/* return value                           */
+	    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
+	    int        t         = 11;  /* data passed to the new thread          */
 
-    /* create a new thread that will execute 'PrintHello' */
-    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
-    if(rc)			/* could not create thread */
-    {
-        printf("\n ERROR: return code from pthread_create is %d \n", rc);
-        exit(1);
-    }
+	    /* create a new thread that will execute 'PrintHello' */
+	    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
+	    if(rc)			/* could not create thread */
+	    {
+	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
+	        exit(1);
+	    }
 
-    printf("\n Created new thread (%d) ... \n", thread_id);
+	    printf("\n Created new thread (%d) ... \n", thread_id);
 
 	}//if
 
@@ -219,7 +222,7 @@ void addVal(struct node** head, int val) {
 	//allocate memory
 	struct node* n_node = (struct node*) malloc(sizeof(struct node));
 
-	n_node->row = n_node;
+	n_node->index = n_node;
 	n_node->next = (*head);
 	(*head) = n_node;
 }
@@ -241,29 +244,13 @@ int getPos(struct node* head, int pos) {
 	return head;
 }
 
-/*
-struct node* cur = head;
-
-	int count = 0;
-
-	while(count != NULL){
-		//loop until index is found, then return
-		if(count ==  pos){
-			return(cur->row);
-		}
-		count++;
-		cur = cur->next;
-	}
-	//need to implement what happens if the index is not found
-*/
-
 //increments a value in the linked list by one
 void incVal(struct node* head, int pos){
 	int temp;
 
-	temp = head->row;
+	temp = head->index;
 	temp++;
-	head->row = temp;
+	head->index = temp;
 }
 
 void generateGaps(){
