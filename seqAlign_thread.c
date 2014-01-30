@@ -253,9 +253,16 @@ int getPos(struct node* head, int pos) {
 void incVal(struct node* head, int pos){
 	int temp;
 
-	temp = head->index;
-	temp++;
-	head->index = temp;
+	//check for null, if it is make index 1
+	if((head->index) != NULL){
+		temp = head->index;
+		temp++;
+		head->index = temp;
+	} else {
+		temp = 1;
+		head->index = temp;
+	}
+		
 }
 
 void generateGaps(){
