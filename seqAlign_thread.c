@@ -164,13 +164,13 @@ void increment(){
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
-	if((getPos(&head, getpid() > getPos(&head, getpid()+1) && (getpid() != strlen(seq1))){
+	if(getPos(&head, getpid()) > getPos(&head, getpid()+1) && (getpid() != strlen(seq1))){
 		pthread_mutex_unlock(pthread_getspecific(getpid()+1));
 	}//if
 
 	//If the count is out done with all of the columns 
 	//Then cancel the thread
-	if((getPos(&head, getpid() > strlen(seq2)){
+	if(getPos(&head, getpid()) > strlen(seq2)){
 	 	pthread_cancel(pthread_self());
 	}//if
 /*
