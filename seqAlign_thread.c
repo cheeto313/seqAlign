@@ -287,7 +287,8 @@ int main(int argc, char* argv[]) {
 	generateGaps();
 
 	//creates the first unique thread and starts the computing process
-	pthread_create(1, NULL, doWork, NULL); 
+	pthread_t  thread_id;
+	pthread_create(thread_id, NULL, doWork, NULL); 
 
 	if (argc == 3) {
 		printf("Writing to file (may take some time)\n");
