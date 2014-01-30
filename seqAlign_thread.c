@@ -154,7 +154,7 @@ void increment(){
 
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
-		pthread_create(getpid()+1, NULL, doWork, null); 
+		pthread_create(getpid()+1, NULL, doWork, NULL); 
 	}//if
 
 	//If parent thread is still working on the data above
