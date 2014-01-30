@@ -159,27 +159,26 @@ void doWork(void* threadInfo) {
 	free(info);
 
     pthread_detach(pthread_self());
-    printf("Hello from doWork - got %d\n", id);
-
-    printf("head at 0 gives me %d\n", getPos(&head, 0));	
-    printf("head at 1 gives me %d\n", getPos(&head, 1));
+    printf("Hello from doWork - got id %d\n", id);
+    printf("Hello from doWork - got counter %d\n", counter);
 
     	//this needs to be fixed
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
-	if((getPos(&head, getpid()) == strlen(seq1)) && (getpid() == strlen(seq2))){
-	 	//pthread_cancel(pthread_self());
-	 	pthread_exit(NULL);
-	}//if
-
-	increment(id);
+	if(count == strlen(seq1)) && (id == strlen(seq2))){
+	 	
+	}else{
+		increment(id, counter);
+	}
+	
 }
 
-void increment(int id){
+void increment(int id, int counter){
 
 	printf("Hello from increment - got %d\n", id);
+	printf("Hello from increment - got %d\n", counter);
 
 	incVal(&head, getPos(&head, getpid()));
 
