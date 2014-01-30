@@ -134,7 +134,8 @@ void freeMatrixMemory(int width, int height) {
 	free(dpMatrix);
 }
 
-/*	Compute the values for the DPM 
+/*	
+	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
 void doWork(void* data) {
