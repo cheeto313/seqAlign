@@ -325,7 +325,7 @@ int main(int argc, char* argv[]) {
     pthread_t  thread_id;     	/* thread's ID (just an integer)          */
     int       id = 1;  /* data passed to the new thread          */
 
-    struct threadInfo *info = malloc(sizeof(struct info)); 
+    struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
     info -> id = id;
     info -> counter = 0;
 
