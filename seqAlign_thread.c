@@ -240,9 +240,9 @@ struct node* cur = head;
 void incVal(struct node* head, int pos){
 	int temp;
 
-	temp = (*head)->row;
+	temp = head->row;
 	temp++;
-	(*head)->row = temp;
+	head->row = temp;
 }
 
 void generateGaps(){
