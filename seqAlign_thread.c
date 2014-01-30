@@ -259,9 +259,9 @@ void generateGaps(){
 
 int main(int argc, char* argv[]) {
 
-	if (argc < 3) {
+	if (argc < 2) {
 		fprintf(stderr,
-		"Usage: seqAlign_thread <data file> <# of threads> [output file]\n");
+		"Usage: seqAlign_thread <data file> [output file]\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -273,8 +273,6 @@ int main(int argc, char* argv[]) {
 		fprintf(stderr, "File not found: %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-
-	int threads = atoi(argv[2]);
 
 	getline(&seq1, &len, fp);
 	trim(seq1); // getline() includes newline
@@ -291,7 +289,7 @@ int main(int argc, char* argv[]) {
 
 	if (argc == 4) {
 		printf("Writing to file (may take some time)\n");
-		char* filename = argv[3];
+		char* filename = argv[2];
 		outputMatrix(filename, strlen(seq1), strlen(seq2));
 	}
 		freeMatrixMemory(strlen(seq1), strlen(seq2));
