@@ -24,7 +24,7 @@ struct node {
 };
 
 //the actual node
-struct *node head = NULL;
+struct node* head = NULL;
 
 long** dpMatrix;
 
@@ -136,13 +136,12 @@ void freeMatrixMemory(int width, int height) {
 */
 void doWork(int row) {
 
-	dpMatrix[row+1][counters[row]+1] = computeSimilarity(row, counters[row], seq1[row], seq2[counters[row]]);
+	dpMatrix[row+1][getPos(&head, row+1)] = computeSimilarity(row, getPos(&head, row), seq1[row], seq2[getPos(&head, row)]);
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
-	if((counters[getpid()] == strlen(seq1)) && (getpid() == strlen(seq2))){
+	if((getPos(&head, getpid()) == strlen(seq1)) && (getpid() == strlen(seq2))){
 	 	pthread_cancel(pthread_self());
-		break;
 	}//if
 
 	increment();
@@ -155,7 +154,7 @@ void increment(){
 		createThread();
 	}//if
 
-	counters[getpid()]++;
+	addVal(&head, getPos(&head, getpid())+1)
 
 	//If parent thread is still working on the data above
 	//Then lock itself
