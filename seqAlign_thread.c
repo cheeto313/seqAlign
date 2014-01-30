@@ -147,7 +147,8 @@ void doWork(void* data) {
     printf("getPid gives me %d\n", getpid());
     printf("th_head at 0 gives me %d\n", getPos(&th_head, 0));
     printf("head at 0 gives me %d\n", getPos(&head, 0));	
-
+    printf("th_head at 1 gives me %d\n", getPos(&th_head, 1));
+    printf("head at 1 gives me %d\n", getPos(&head, 1));
     pthread_exit(NULL);			/* terminate the thread */
 
 	dpMatrix[getpid()+1][getPos(&head, getpid()+1)] = computeSimilarity(getpid(), getPos(&head, getpid()), seq1[getpid()], seq2[getPos(&head, getpid())]);
