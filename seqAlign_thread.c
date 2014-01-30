@@ -154,7 +154,7 @@ void increment(){
 		createThread();
 	}//if
 
-	addVal(&head, getPos(&head, getpid())+1)
+	addVal(&head, getPos(&head, getpid())+1);
 
 	//If parent thread is still working on the data above
 	//Then lock itself
@@ -284,7 +284,7 @@ int main(int argc, char* argv[]) {
 
 	initMatrix(strlen(seq1), strlen(seq2));
 
-	generateGaps()
+	generateGaps();
 
 	//creates the first unique thread and starts the computing process
 
