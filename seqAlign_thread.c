@@ -287,7 +287,7 @@ int main(int argc, char* argv[]) {
 	//creates the first unique thread and starts the computing process
 
 
-	if (argc == 4) {
+	if (argc == 3) {
 		printf("Writing to file (may take some time)\n");
 		char* filename = argv[2];
 		outputMatrix(filename, strlen(seq1), strlen(seq2));
