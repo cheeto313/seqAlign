@@ -153,8 +153,8 @@ void increment(){
 
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
-	pthread_t r_thread;
-	th_id = pthread_create(&r_thread[getpid()+1], NULL, doWork(), null);
+
+
 	}//if
 
 	//If parent thread is still working on the data above
@@ -288,8 +288,6 @@ int main(int argc, char* argv[]) {
 	generateGaps();
 
 	//creates the first unique thread and starts the computing process
-	pthread_t r_thread;
-	th_id = pthread_create(&r_thread[0], NULL, doWork(), null);
 
 
 	if (argc == 4) {
