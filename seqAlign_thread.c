@@ -134,8 +134,13 @@ void freeMatrixMemory(int width, int height) {
 /*	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
-void doWork() {
-	pthread_exit(NULL);
+void doWork(void* data) {
+
+	int my_data = (int)data;     	/* data received by thread */
+
+    pthread_detach(pthread_self());
+    printf("Hello from new thread - got %d\n", my_data);
+    pthread_exit(NULL);			/* terminate the thread */
 
 	dpMatrix[getpid()+1][getPos(&head, getpid()+1)] = computeSimilarity(getpid(), getPos(&head, getpid()), seq1[getpid()], seq2[getPos(&head, getpid())]);
 
@@ -287,8 +292,21 @@ int main(int argc, char* argv[]) {
 	generateGaps();
 
 	//creates the first unique thread and starts the computing process
-	pthread_t  thread_id;
-	pthread_create(thread_id, NULL, doWork, NULL); 
+	int        rc;         	/* return value                           */
+    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
+    int        t         = 11;  /* data passed to the new thread          */
+
+    /* create a new thread that will execute 'PrintHello' */
+    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
+    if(rc)			/* could not create thread */
+    {
+        printf("\n ERROR: return code from pthread_create is %d \n", rc);
+        exit(1);
+    }
+
+    printf("\n Created new thread (%d) ... \n", thread_id);
+    
+    pthread_exit(NULL);		/* terminate the thread */
 
 	if (argc == 3) {
 		printf("Writing to file (may take some time)\n");
