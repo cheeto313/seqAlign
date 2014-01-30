@@ -134,7 +134,7 @@ void freeMatrixMemory(int width, int height) {
 /*	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
-void doWork(int row) {
+void doWork() {
 
 	dpMatrix[row+1][getPos(&head, row+1)] = computeSimilarity(row, getPos(&head, row), seq1[row], seq2[getPos(&head, row)]);
 
@@ -149,12 +149,13 @@ void doWork(int row) {
 
 void increment(){
 
-	//if a new thread can be made
-	if ((getPos(&head, getpid()) == 0) && (getpid() <= strlen(seq1))){
-		createThread();
-	}//if
-
 	addVal(&head, getPos(&head, getpid())+1);
+
+	//if a new thread can be made
+	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
+	pthread_t r_thread;
+	th_id = pthread_create(&r_thread[getpid()+1], NULL, doWork(), null);
+	}//if
 
 	//If parent thread is still working on the data above
 	//Then lock itself
@@ -195,12 +196,12 @@ Linked List Use examples
 //method to push an element to the linked list
 void addVal(struct node** head, int val) {
 	//allocate memory
-	if ((*head) == NULL){
-		(*head) = (struct node*) malloc(sizeof(struct node));
+	if ((head*) == NULL){
+		(head*) = (struct node*) malloc(sizeof(struct node));
 	}
 
-	(*head)->row = val;
-	(*head)->next = head;
+	(head*)->row = val;
+	(head*)->next = head;
 }
 
 //returns the element at a certain position on a linked list
@@ -287,6 +288,8 @@ int main(int argc, char* argv[]) {
 	generateGaps();
 
 	//creates the first unique thread and starts the computing process
+	pthread_t r_thread;
+	th_id = pthread_create(&r_thread[0], NULL, doWork(), null);
 
 
 	if (argc == 4) {
