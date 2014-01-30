@@ -136,7 +136,7 @@ void freeMatrixMemory(int width, int height) {
 */
 void doWork() {
 
-	dpMatrix[row+1][getPos(&head, row+1)] = computeSimilarity(row, getPos(&head, row), seq1[row], seq2[getPos(&head, row)]);
+	dpMatrix[getpid()+1][getPos(&head, getpid()+1)] = computeSimilarity(getpid(), getPos(&head, getpid()), seq1[getpid()], seq2[getPos(&head, getpid())]);
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
