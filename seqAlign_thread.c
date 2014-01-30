@@ -206,20 +206,36 @@ Linked List Use examples
 }//increment
 
 
-//method to add to the linked list
-void addVal(struct node** head, int val) {
+//method to push an element to the linked list
+void addVal(struct node **head, int val) {
 	//allocate memory
-	struct node* newNode = (struct node*) malloc(sizeof(struct node));
-	//add the new element to the linked list
-	newNode->row = val;
+	if ((*head) == NULL){
+		(*head) = (struct node*) malloc(sizeof(struct node));
+	}
 
-	newNode->next = (*head);
-	(*head) = newNode;
+	(*head)->row = val;
+	(*head)->next = head;
 }
 
-//returns the element at a certain position ona linked list
+//returns the element at a certain position on a linked list
 int getPos(struct node* head, int pos) {
-	struct node* cur = head;
+	
+	if(head == NULL){
+		return NULL;
+	}
+	while(--pos){
+		if(head->next){
+			head = head->next;
+		}
+		else{
+			return NULL;
+		}
+	}
+	return head;
+}
+
+/*
+struct node* cur = head;
 
 	int count = 0;
 
@@ -232,6 +248,15 @@ int getPos(struct node* head, int pos) {
 		cur = cur->next;
 	}
 	//need to implement what happens if the index is not found
+*/
+
+//increments a value in the linked list by one
+void incVal(struct node* head, int pos){
+	int temp;
+
+	temp = (*head)->row;
+	temp++;
+	(*head)->row = temp;
 }
 
 void generateGaps(){
