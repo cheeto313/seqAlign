@@ -310,8 +310,8 @@ int main(int argc, char* argv[]) {
 
     /* create a new thread that will execute 'PrintHello' */
 
-    addVal(head, 1);
-	addVal(&th_head, &thread_id);
+    addVal(&head, 1);
+	addVal(&th_head, 1);
 
     rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
 
