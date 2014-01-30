@@ -165,7 +165,7 @@ void doWork(void* threadInfo) {
     printf("head at 1 gives me %d\n", getPos(&head, 1));
 
     	//this needs to be fixed
-	//dpMatrix[my_id+1][getPos(&head, my_id+1)] = computeSimilarity(my_id, getPos(&head, my_id), seq1[my_id], seq2[getPos(&head, my_id)]);
+	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
