@@ -247,12 +247,12 @@ void incVal(struct node* head, int pos){
 
 void generateGaps(){
 	//placing the gaps for the first column
-	for (int i = 0; i < strlen(seq1); i++){
+	for (int i = 0; i < strlen(seq1)+1; i++){
 		dpMatrix[0][i] = i * (-1 * GAP_PENALTY);
 	}//for i 
 
 	//placing the gaps for the first row
-	for (int i = 0; i < strlen(seq2); i++){
+	for (int i = 0; i < strlen(seq2)+1; i++){
 		dpMatrix[i][0] = i * (-1 * GAP_PENALTY);
 	}//for i
 }//generateGaps
