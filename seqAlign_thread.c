@@ -219,22 +219,6 @@ void increment(int id, int counter){
 	 	//pthread_cancel(pthread_self());
 	 	pthread_exit(NULL);
 	}//if
-/*
-Linked List Use examples
-	Add element
-		addVal(&head,4);
-	Get Nth element
-		int derp = getPos(&head,2); //return element at index 2
-
-	e.g.
-	addVal(&head,4, false); //adds it for table list
-	addVal(&head,1, true); //adds it for PID list
-	addVal(&head,3);
-	addVal(&head,0);
-	addVal(&head,6);
-	Constructs: 
-	6->0->3->1->4
-*/
 }//increment
 
 
@@ -257,8 +241,7 @@ int getPos(struct node* head, int pos) {
 	while(--pos){
 		if(head->next){
 			head = head->next;
-		}
-		else{
+		} else {
 			return NULL;
 		}
 	}
