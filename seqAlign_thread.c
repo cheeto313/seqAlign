@@ -144,20 +144,15 @@ void freeMatrixMemory(int width, int height) {
 	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
-void doWork(void* data) {
+void doWork(void* id) {
 
-	int my_data = (int)data;     	/* data received by thread */
+	int my_id = (int)id;     	/* data received by thread */
 
     pthread_detach(pthread_self());
-    printf("Hello from new thread - got %d\n", my_data);
-    printf("getPid gives me %d\n", getpid());
-    printf("gettid gives me %d\n", syscall(SYS_gettid));
-    printf("pthread_self gives me %d\n", pthread_self());
-    printf("th_head at 0 gives me %d\n", getPos(&th_head, 0));
+    printf("Hello from doWork - got %d\n", my_id);
+
     printf("head at 0 gives me %d\n", getPos(&head, 0));	
-    printf("th_head at 1 gives me %d\n", getPos(&th_head, 1));
     printf("head at 1 gives me %d\n", getPos(&head, 1));
-    pthread_exit(NULL);			/* terminate the thread */
 
 	dpMatrix[getpid()+1][getPos(&head, getpid()+1)] = computeSimilarity(getpid(), getPos(&head, getpid()), seq1[getpid()], seq2[getPos(&head, getpid())]);
 
@@ -168,10 +163,12 @@ void doWork(void* data) {
 	 	pthread_exit(NULL);
 	}//if
 
-	//increment();
+	increment(&my_id);
 }
 
-void increment(){
+void increment(int id){
+
+	printf("Hello from increment - got %d\n", id);
 
 	incVal(&head, getPos(&head, getpid()));
 
@@ -315,16 +312,16 @@ int main(int argc, char* argv[]) {
 	//creates the first unique thread and starts the computing process
 	int        rc;         	/* return value                           */
     pthread_t  thread_id;     	/* thread's ID (just an integer)          */
-    int        t = 11;  /* data passed to the new thread          */
+    int       id = 1;  /* data passed to the new thread          */
 
 	printf("The thread id is  %d\n", thread_id);
 
     /* create a new thread that will execute 'PrintHello' */
 
     addVal(&head, 1);
-	addVal(&th_head, 1);
+    addVal(&head, 0);
 
-    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
+    rc = pthread_create(&thread_id, NULL, doWork, (void*)id);  
 
     
 
