@@ -154,6 +154,7 @@ void doWork(void* id) {
     printf("head at 0 gives me %d\n", getPos(&head, 0));	
     printf("head at 1 gives me %d\n", getPos(&head, 1));
 
+    	//this needs to be fixed
 	//dpMatrix[my_id+1][getPos(&head, my_id+1)] = computeSimilarity(my_id, getPos(&head, my_id), seq1[my_id], seq2[getPos(&head, my_id)]);
 
 	//If all work is done 
@@ -163,8 +164,7 @@ void doWork(void* id) {
 	 	pthread_exit(NULL);
 	}//if
 
-	printf("calling increment\n");
-	increment(&my_id);
+	increment(my_id);
 }
 
 void increment(int id){
