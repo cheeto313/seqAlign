@@ -158,7 +158,7 @@ void increment(){
 
 	//If parent thread is still working on the data above
 	//Then lock itself
-	if((getPos(&head, getpid() >= getPos(&head, getpid()-1) && (getpid() != 0)){
+	if(getPos(&head, getpid()) >= getPos(&head, getpid()-1) && (getpid() != 0)){
 		pthread_mutex_lock(pthread_self());
 	}//if
 
