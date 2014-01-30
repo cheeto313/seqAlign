@@ -141,7 +141,8 @@ void doWork() {
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
 	if((getPos(&head, getpid()) == strlen(seq1)) && (getpid() == strlen(seq2))){
-	 	pthread_cancel(pthread_self());
+	 	//pthread_cancel(pthread_self());
+	 	pthread_exit(NULL);
 	}//if
 
 	increment();
@@ -149,12 +150,11 @@ void doWork() {
 
 void increment(){
 
-	addVal(&head, getPos(&head, getpid())+1);
+	incVal(&head, getPos(&head, getpid()));
 
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
-
-
+		pthread_create(getpid()+1, NULL, doWork, NULL); 
 	}//if
 
 	//If parent thread is still working on the data above
@@ -172,7 +172,8 @@ void increment(){
 	//If the count is out done with all of the columns 
 	//Then cancel the thread
 	if(getPos(&head, getpid()) > strlen(seq2)){
-	 	pthread_cancel(pthread_self());
+	 	//pthread_cancel(pthread_self());
+	 	pthread_exit(NULL);
 	}//if
 /*
 Linked List Use examples
@@ -248,21 +249,21 @@ void incVal(struct node* head, int pos){
 //working
 void generateGaps(){
 	//placing the gaps for the first column
-	for (int i = 0; i < strlen(seq1); i++){
+	for (int i = 0; i < strlen(seq1)+1; i++){
 		dpMatrix[0][i] = i * (-1 * GAP_PENALTY);
 	}//for i 
 
 	//placing the gaps for the first row
-	for (int i = 0; i < strlen(seq2); i++){
+	for (int i = 0; i < strlen(seq2)+1; i++){
 		dpMatrix[i][0] = i * (-1 * GAP_PENALTY);
 	}//for i
 }//generateGaps
 
 int main(int argc, char* argv[]) {
 
-	if (argc < 3) {
+	if (argc < 2) {
 		fprintf(stderr,
-		"Usage: seqAlign_thread <data file> <# of threads> [output file]\n");
+		"Usage: seqAlign_thread <data file> [output file]\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -275,8 +276,6 @@ int main(int argc, char* argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	int threads = atoi(argv[2]);
-
 	getline(&seq1, &len, fp);
 	trim(seq1); // getline() includes newline
 
@@ -288,11 +287,11 @@ int main(int argc, char* argv[]) {
 	generateGaps();
 
 	//creates the first unique thread and starts the computing process
+	pthread_create(1, NULL, doWork, NULL); 
 
-
-	if (argc == 4) {
+	if (argc == 3) {
 		printf("Writing to file (may take some time)\n");
-		char* filename = argv[3];
+		char* filename = argv[2];
 		outputMatrix(filename, strlen(seq1), strlen(seq2));
 	}
 		freeMatrixMemory(strlen(seq1), strlen(seq2));
