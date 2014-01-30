@@ -163,6 +163,7 @@ void doWork(void* id) {
 	 	pthread_exit(NULL);
 	}//if
 
+	printf("calling increment\n");
 	increment(&my_id);
 }
 
