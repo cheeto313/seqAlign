@@ -17,15 +17,6 @@ int similarity[6][6] = { { 16, 0, 0, 0, 0, 0 }, { 0, 20, 0, 0, 0, 0 }, { 0, 0,
 		20, 0, 0, 0 }, { 0, 0, 0, 20, 0, 12 }, { 0, 0, 0, 0, 20, 0 }, { 0, 0, 0,
 		12, 0, 20 } };
 
-typedef struct workItem {
-	int fromX;
-	int fromY;
-	int toX;
-	int toY;
-	int x;
-	int y;
-} workItem_t;
-
 //struct for linked list
 struct node {
 	int row;
@@ -41,10 +32,6 @@ char* seq1 = NULL;
 char* seq2 = NULL;
 
 int numBlocks_x, numBlocks_y;
-
-workQueue_t* workQueue;
-
-workItem_t** work;
 
 int** queued;
 
@@ -153,7 +140,7 @@ void doWork(int row) {
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
-	if((counters[getpid()] = strlen(seq1)) && (getpid() = strlen(seq2))){
+	if((counters[getpid()] == strlen(seq1)) && (getpid() == strlen(seq2))){
 	 	pthread_cancel(pthread_self());
 		break;
 	}//if
@@ -164,7 +151,7 @@ void doWork(int row) {
 void increment(){
 
 	//if a new thread can be made
-	if ((counters[getpid()] == 0) && (getpid() <= strlen(seq1))){
+	if ((getPos(&head, getpid()) == 0) && (getpid() <= strlen(seq1))){
 		createThread();
 	}//if
 
@@ -172,19 +159,19 @@ void increment(){
 
 	//If parent thread is still working on the data above
 	//Then lock itself
-	if((counters[getpid()] >= counters[getpid()-1]) && (getpid() != 0)){
+	if((getPos(&head, getpid() >= getPos(&head, getpid()-1) && (getpid() != 0)){
 		pthread_mutex_lock(pthread_self());
 	}//if
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
-	if((counters[getpid()] > counters[getpid()+1]) && (getpid() != strlen(seq1))){
+	if((getPos(&head, getpid() > getPos(&head, getpid()+1) && (getpid() != strlen(seq1))){
 		pthread_mutex_unlock(pthread_getspecific(getpid()+1));
 	}//if
 
 	//If the count is out done with all of the columns 
 	//Then cancel the thread
-	if((counters[getpid()] > strlen(seq2)){
+	if((getPos(&head, getpid() > strlen(seq2)){
 	 	pthread_cancel(pthread_self());
 	}//if
 /*
