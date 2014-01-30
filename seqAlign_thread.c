@@ -317,6 +317,8 @@ int main(int argc, char* argv[]) {
     pthread_t  thread_id = 1;     	/* thread's ID (just an integer)          */
     int        t = 11;  /* data passed to the new thread          */
 
+	printf("\n the thread id is (%d)\n", thread_id);
+
     /* create a new thread that will execute 'PrintHello' */
 
     addVal(&head, 1);
