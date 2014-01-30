@@ -18,6 +18,12 @@ int similarity[6][6] = { { 16, 0, 0, 0, 0, 0 }, { 0, 20, 0, 0, 0, 0 }, { 0, 0,
 		20, 0, 0, 0 }, { 0, 0, 0, 20, 0, 12 }, { 0, 0, 0, 0, 20, 0 }, { 0, 0, 0,
 		12, 0, 20 } };
 
+//struct for passing data
+struct threadInfo {
+	int id;
+	int counter;
+};
+
 //struct for linked list
 struct node {
 	int row;
@@ -144,12 +150,13 @@ void freeMatrixMemory(int width, int height) {
 	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
-void doWork(void* id) {
+void doWork(struct threadInfo info) {
 
-	int my_id = (int)id;     	/* data received by thread */
+	int id = info.id;     	/* data received by thread */
+	int counter = info.counter;
 
     pthread_detach(pthread_self());
-    printf("Hello from doWork - got %d\n", my_id);
+    printf("Hello from doWork - got %d\n", id);
 
     printf("head at 0 gives me %d\n", getPos(&head, 0));	
     printf("head at 1 gives me %d\n", getPos(&head, 1));
@@ -164,7 +171,7 @@ void doWork(void* id) {
 	 	pthread_exit(NULL);
 	}//if
 
-	increment(my_id);
+	increment(id);
 }
 
 void increment(int id){
@@ -315,6 +322,14 @@ int main(int argc, char* argv[]) {
     pthread_t  thread_id;     	/* thread's ID (just an integer)          */
     int       id = 1;  /* data passed to the new thread          */
 
+    struct threadInfo info; 
+    info.id = id;
+    info.counter = 0;
+
+    {
+    	/* data */
+    };
+
 	printf("The thread id is  %d\n", thread_id);
 
     /* create a new thread that will execute 'PrintHello' */
@@ -322,7 +337,7 @@ int main(int argc, char* argv[]) {
     addVal(&head, 1);
     addVal(&head, 0);
 
-    rc = pthread_create(&thread_id, NULL, doWork, (void*)id);  
+    rc = pthread_create(&thread_id, NULL, doWork, &info);  
 
     
 
