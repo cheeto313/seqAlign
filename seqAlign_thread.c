@@ -318,16 +318,13 @@ int main(int argc, char* argv[]) {
     int        t = 11;  /* data passed to the new thread          */
 
 	printf("The thread id is  %d\n", thread_id);
-	 printf("getPid gives me %d\n", getpid());
-    printf("gettid gives me %d\n", syscall(SYS_gettid));
-    printf("pthread_self gives me %d\n", pthread_self());
 
     /* create a new thread that will execute 'PrintHello' */
 
     addVal(&head, 1);
 	addVal(&th_head, 1);
 
-    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
+    rc = pthread_create(1, NULL, doWork, (void*)t);  
 
     
 
