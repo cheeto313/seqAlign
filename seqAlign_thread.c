@@ -167,12 +167,12 @@ void doWork(void* threadInfo) {
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
-	if(count == strlen(seq1)) && (id == strlen(seq2))){
+	if((counter == strlen(seq1)) && (id == strlen(seq2))){
 	 	
-	}else{
+	}//if
+	else{
 		increment(id, counter);
-	}
-	
+	}//else
 }
 
 void increment(int id, int counter){
