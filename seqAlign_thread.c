@@ -150,7 +150,7 @@ void doWork() {
 
 void increment(){
 
-	addVal(&head, getPos(&head, getpid())+1);
+	incVal(&head, getPos(&head, getpid()));
 
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
