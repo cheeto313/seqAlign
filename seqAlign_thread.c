@@ -318,6 +318,9 @@ int main(int argc, char* argv[]) {
     int        t = 11;  /* data passed to the new thread          */
 
 	printf("The thread id is  %d\n", thread_id);
+	 printf("getPid gives me %d\n", getpid());
+    printf("gettid gives me %d\n", syscall(SYS_gettid));
+    printf("pthread_self gives me %d\n", pthread_self());
 
     /* create a new thread that will execute 'PrintHello' */
 
@@ -336,6 +339,7 @@ int main(int argc, char* argv[]) {
 
     printf("Created new thread (%d) ... \n", thread_id);
     
+    pthread_exit(NULL);
 
 	if (argc == 3) {
 		printf("Writing to file (may take some time)\n");
