@@ -150,10 +150,13 @@ void freeMatrixMemory(int width, int height) {
 	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
-void doWork(struct threadInfo info) {
+void doWork(void* threadInfo) {
 
-	int id = info.id;     	/* data received by thread */
-	int counter = info.counter;
+	struct threadInfo* info = (struct threadInfo*) threadInfo;
+
+	int id = info -> id;     	/* data received by thread */
+	int counter = info -> counter;
+	free(info);
 
     pthread_detach(pthread_self());
     printf("Hello from doWork - got %d\n", id);
@@ -322,9 +325,9 @@ int main(int argc, char* argv[]) {
     pthread_t  thread_id;     	/* thread's ID (just an integer)          */
     int       id = 1;  /* data passed to the new thread          */
 
-    struct threadInfo info; 
-    info.id = id;
-    info.counter = 0;
+    struct threadInfo *info = malloc(sizeof(struct info)); 
+    info -> id = id;
+    info -> counter = 0;
 
     {
     	/* data */
@@ -337,7 +340,7 @@ int main(int argc, char* argv[]) {
     addVal(&head, 1);
     addVal(&head, 0);
 
-    rc = pthread_create(&thread_id, NULL, doWork, &info);  
+    rc = pthread_create(&thread_id, NULL, doWork, info);  
 
     
 
