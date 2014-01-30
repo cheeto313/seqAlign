@@ -160,7 +160,21 @@ void increment(){
 
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
-		pthread_create(getpid()+1, NULL, doWork, NULL); 
+		
+	int        rc;         	/* return value                           */
+    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
+    int        t         = 11;  /* data passed to the new thread          */
+
+    /* create a new thread that will execute 'PrintHello' */
+    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
+    if(rc)			/* could not create thread */
+    {
+        printf("\n ERROR: return code from pthread_create is %d \n", rc);
+        exit(1);
+    }
+
+    printf("\n Created new thread (%d) ... \n", thread_id);
+
 	}//if
 
 	//If parent thread is still working on the data above
@@ -269,7 +283,6 @@ int main(int argc, char* argv[]) {
 	if (argc < 2) {
 		fprintf(stderr,
 		"Usage: seqAlign_thread <data file> [output file]\n");
-		exit(EXIT_FAILURE);
 	}
 
 	FILE * fp;
@@ -293,7 +306,7 @@ int main(int argc, char* argv[]) {
 
 	//creates the first unique thread and starts the computing process
 	int        rc;         	/* return value                           */
-    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
+    pthread_t  thread_id = 1;     	/* thread's ID (just an integer)          */
     int        t         = 11;  /* data passed to the new thread          */
 
     /* create a new thread that will execute 'PrintHello' */
