@@ -152,7 +152,7 @@ void doWork(void* threadInfo) {
 
     //pthread_detach(pthread_self());
 
-	//f(info);
+	struct threadInfo y = f(threadInfo);
 
 }
 
