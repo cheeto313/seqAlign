@@ -188,7 +188,7 @@ struct threadInfo f(struct threadInfo data){
     	info.id = id;
     	info.counter = counter + 1;
 
-		return threadWork(info)
+		return f(info);
 	}//else
 
 
