@@ -257,7 +257,7 @@ void addValTh(struct node** th_head, int val) {
 	n_node->next = (*th_head);
 	(*th_head) = n_node;
 }
-
+//nodes are getting crossed somewhere...
 //returns the element at a certain position on a linked list
 int getPosNode(struct node* n_head, int x){
     struct node* curr = n_head;
