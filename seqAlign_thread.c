@@ -157,7 +157,7 @@ void doWork(void* threadInfo) {
     printf("Hello from doWork - got id %d\n", id);
     printf("Hello from doWork - got counter %d\n", counter);
 
-	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
+	//dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
