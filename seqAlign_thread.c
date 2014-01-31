@@ -36,6 +36,8 @@ long** dpMatrix;
 char* seq1 = NULL;
 char* seq2 = NULL;
 
+char* filename;
+
 int numBlocks_x, numBlocks_y;
 
 int** queued;
@@ -180,7 +182,7 @@ void doWork(void* threadInfo) {
 	//if the matrix is done 
 	//then stop the program
 	if (counter == strlen(seq1) && id == strlen(seq2)){
-
+	allDone(); // =)
 	}
 }
 
@@ -298,6 +300,18 @@ void generateGaps(){
 	}//for i
 }//generateGaps
 
+void allDone(){
+
+		printf("Writing to file (may take some time)\n");
+		
+		outputMatrix(filename, strlen(seq1), strlen(seq2));
+
+		freeMatrixMemory(strlen(seq1), strlen(seq2));
+		free(seq1);
+		free(seq2);
+		exit(EXIT_SUCCESS);
+}//allDone
+
 int main(int argc, char* argv[]) {
 
 	if (argc < 2) {
@@ -313,6 +327,7 @@ int main(int argc, char* argv[]) {
 		fprintf(stderr, "File not found: %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
+	filename = argv[2];
 
 	getline(&seq1, &len, fp);
 	trim(seq1); // getline() includes newline
@@ -351,17 +366,6 @@ int main(int argc, char* argv[]) {
     printf("Created new thread (%d) ... \n", thread_id);
 
     pthread_exit(NULL);
-
-
-	if (argc == 2) {
-		printf("Writing to file (may take some time)\n");
-		char* filename = argv[2];
-		outputMatrix(filename, strlen(seq1), strlen(seq2));
-	}
-		freeMatrixMemory(strlen(seq1), strlen(seq2));
-		free(seq1);
-		free(seq2);
-		exit(EXIT_SUCCESS);
 }
 
 
