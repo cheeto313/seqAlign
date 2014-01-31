@@ -144,8 +144,8 @@ struct threadInfo f(struct threadInfo data){
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
 
-	printf("head %d\n", getPos(&head, id));
-	printf("th_head %d\n", getPos(&th_head, id));
+	printf("head %d\n", getPosNode(&head, id));
+	printf("th_head %d\n", getPosTh(&th_head, id));
 
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1, seq2);
 
@@ -222,12 +222,12 @@ void increment(int id, int counter){
 
 	//If parent thread is still working on the data above
 	//Then lock itself
-	if(counter >= getPos(&head, counter+1) && (id != 1)){
+	if(counter >= getPosNode(&head, counter+1) && (id != 1)){
 	}//if
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
-	if(counter >= getPos(&head, counter-1) && id != strlen(seq1)){
+	if(counter >= getPosNode(&head, counter-1) && id != strlen(seq1)){
 		
 	}//if
 
@@ -259,13 +259,27 @@ void addValTh(struct node** th_head, int val) {
 }
 
 //returns the element at a certain position on a linked list
-int getPos(struct node* head, int x){
+int getPosNode(struct node* head, int x){
     struct node* curr = head;
     int count = 0; 
     while  (curr != NULL)
     {
-       if (count == x)
+       if (count == x){
           	return (curr->index);
+       }
+       count++;
+       curr = curr->next;
+    }
+    assert(0);              
+}
+
+int getPosTh(struct th_node* head, int x){
+    struct node* curr = head;
+    int count = 0; 
+    while  (curr != NULL){
+       if (count == x){
+          	return (curr->index);
+       }
        count++;
        curr = curr->next;
     }
@@ -312,14 +326,14 @@ void generateGaps(){
 
 void allDone(){
 
-		printf("Writing to file (may take some time)\n");
-		
-		outputMatrix(filename, strlen(seq1), strlen(seq2));
+	printf("Writing to file (may take some time)\n");
+	
+	outputMatrix(filename, strlen(seq1), strlen(seq2));
 
-		freeMatrixMemory(strlen(seq1), strlen(seq2));
-		free(seq1);
-		free(seq2);
-		exit(EXIT_SUCCESS);
+	freeMatrixMemory(strlen(seq1), strlen(seq2));
+	free(seq1);
+	free(seq2);
+	exit(EXIT_SUCCESS);
 }//allDone
 
 int main(int argc, char* argv[]) {
@@ -366,8 +380,8 @@ int main(int argc, char* argv[]) {
     addValNode(&head, 1);
     addValTh(&th_head, thread_id);
 
-    printf("Head: %d\n", getPos(&head,1));
-    printf("Th_Head: %d\n", getPos(&th_head,1));
+    printf("Head: %d\n", getPosHead(&head,1));
+    printf("Th_Head: %d\n", getPosTh(&th_head,1));
 
     /* could not create thread */
     if(rc){
