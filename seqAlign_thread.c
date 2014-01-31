@@ -80,7 +80,7 @@ int charIndex(char c) {
 
 /* Compute the similarity at a DPM location */
 int computeSimilarity(int x, int y, char* seq1, char* seq2) {
-	printf("Hello from computeSimilarity\n");
+
 	if (x == 0) {
 		if (y == 0)
 			return 0;
@@ -90,12 +90,16 @@ int computeSimilarity(int x, int y, char* seq1, char* seq2) {
 	if (y == 0) {
 		return dpMatrix[x - 1][y] - GAP_PENALTY;
 	}
-
+	printf("Hello from left\n");
 	int left = dpMatrix[x - 1][y] - GAP_PENALTY;
+	printf("Hello from above\n");
 	int above = dpMatrix[x][y - 1] - GAP_PENALTY;
 
+	printf("Hello from seq1\n");
 	char a = seq1[x - 1];
+	printf("Hello from seq2\n");
 	char b = seq2[y - 1];
+	printf("Hello from diagonal\n");
 	int diagonal = dpMatrix[x - 1][y - 1]
 			+ similarity[charIndex(a)][charIndex(b)];
 
