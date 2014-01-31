@@ -160,10 +160,19 @@ void freeMatrixMemory(int width, int height) {
 
     //pthread_detach(pthread_self());
 
-	printf("Hello from doWork - got pid %d\n", getpid());
+	threadWork(info);
 
-    printf("Hello from doWork - got id %d\n", id);
-    printf("Hello from doWork - got counter %d\n", counter);
+}
+
+struct threadWork(struct threadInfo){
+
+	int id = threadInfo.id;     	/* data received by thread */
+	int counter = threadInfo.counter;
+
+	printf("Hello from threadWork - got pid %d\n", getpid());
+
+    printf("Hello from threadWork - got id %d\n", id);
+    printf("Hello from threadWork - got counter %d\n", counter);
 
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
 
@@ -175,13 +184,15 @@ void freeMatrixMemory(int width, int height) {
 	else{
 		increment(id, counter);
 
-   		struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
+   		struct threadInfo info; 
     	info -> id = id;
     	info -> counter = counter + 1;
 
-		return doWork(info)
+		return threadWork(info)
 	}//else
-}
+
+
+}//threadWork
 
 void increment(int id, int counter){
 
