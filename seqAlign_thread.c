@@ -268,7 +268,7 @@ int getPosNode(struct node* n_head, int x){
        curr = curr->next;
     }
     //debug
-    assert(0);              
+    //assert(0);              
 }
 
 int getPosTh(struct th_node* head, int x){
@@ -282,7 +282,7 @@ int getPosTh(struct th_node* head, int x){
        curr = curr->next;
     }
     //debug
-    assert(0);              
+    //assert(0);              
 }
 	/*if(head == NULL){
 		return NULL;
