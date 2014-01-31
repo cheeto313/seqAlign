@@ -238,7 +238,7 @@ void addVal(struct node** head, int val) {
 	//allocate memory
 	struct node* n_node = (struct node*) malloc(sizeof(struct node));
 
-	n_node->row = n_node;
+	n_node->row = val;
 	n_node->next = (*head);
 	(*head) = n_node;
 }
