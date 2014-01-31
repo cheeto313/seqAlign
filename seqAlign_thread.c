@@ -181,6 +181,13 @@ void doWork(void* threadInfo) {
 
 	//if the matrix is done 
 	//then stop the program
+
+	printf("checking allDone - seq1 %d\n", strlen(seq1));
+	printf("checking allDone - counter %d\n", counter);
+
+	printf("checking allDone - seq2 %d\n", strlen(seq2));
+	printf("checking allDone - id %d\n", id);
+
 	if (counter == strlen(seq1) && id == strlen(seq2)){
 	allDone(); // =)
 	}
