@@ -160,7 +160,7 @@ void freeMatrixMemory(int width, int height) {
 
     //pthread_detach(pthread_self());
 
-	threadWork(info);
+	f(info);
 
 }
 
