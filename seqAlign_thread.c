@@ -13,7 +13,6 @@
 #include <assert.h>
 
 #define GAP_PENALTY 10
-#define BLOCKSIZE 1000
 
 int similarity[6][6] = { { 16, 0, 0, 0, 0, 0 }, { 0, 20, 0, 0, 0, 0 }, { 0, 0,
 		20, 0, 0, 0 }, { 0, 0, 0, 20, 0, 12 }, { 0, 0, 0, 0, 20, 0 }, { 0, 0, 0,
@@ -199,6 +198,8 @@ void increment(int id, int counter){
 
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info);  
+	     addVal(&head, counter);
+
 
 	    /* could not create thread */
 	    if(rc){
@@ -209,19 +210,19 @@ void increment(int id, int counter){
 
 	//If parent thread is still working on the data above
 	//Then lock itself
-	if(counter >= counter-1 && (id != 0)){
+	if(counter >= getPos(&head, counter+1) && (id != 1)){
 	}//if
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
-	if(counter > counter+1 && id != strlen(seq1)){
+	if(counter >= getPos(&head, counter-1) && id != strlen(seq1)){
 		
 	}//if
 
 	//If the count is out done with all of the columns 
 	//Then cancel the thread
 	if(counter > strlen(seq2)){
-	 	//pthread_cancel(pthread_self());
+	 	pthread_cancel(pthread_self());
 	}//if
 }//increment
 
@@ -335,17 +336,17 @@ int main(int argc, char* argv[]) {
     struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
     info -> id = 1;
     info -> counter = 1;
-
-	printf("The thread id is  %d\n", thread_id);
 	//the actual node
 	struct node* head = NULL;
     /* create a new thread that will execute 'PrintHello' */
-    addVal(&head, 6);
-    addVal(&head, 5);
+    
     int x = getPos(head, 1);
     printf("val @ 1: %d\n", x);
 
-    rc = pthread_create(&thread_id, NULL, doWork, info);  
+
+    rc = pthread_create(&thread_id, NULL, doWork, info); 
+    addVal(&head, counter);
+
     /* could not create thread */
     if(rc){
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
