@@ -380,7 +380,7 @@ int main(int argc, char* argv[]) {
     addValNode(&head, 1);
     addValTh(&th_head, thread_id);
 
-    printf("Head: %d\n", getPosHead(&head,1));
+    printf("Head: %d\n", getPosNode(&head,1));
     printf("Th_Head: %d\n", getPosTh(&th_head,1));
 
     /* could not create thread */
