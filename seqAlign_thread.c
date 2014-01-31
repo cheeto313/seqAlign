@@ -332,7 +332,7 @@ int main(int argc, char* argv[]) {
     addVal(&th_head, 3);
 
     rc = pthread_create(&thread_id, NULL, doWork, info);  
-    
+    rc = pthread_create(&thread_id, NULL, doWork, info); 
     /* could not create thread */
     if(rc){
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
