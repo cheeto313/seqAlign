@@ -159,6 +159,9 @@ void doWork(void* threadInfo) {
 	free(info);
 
     //pthread_detach(pthread_self());
+
+	printf("Hello from doWork - got pid %d\n", getpid());
+
     printf("Hello from doWork - got id %d\n", id);
     printf("Hello from doWork - got counter %d\n", counter);
 
@@ -199,7 +202,7 @@ void increment(int id, int counter){
 
 	    /* create a new thread that will execute 'PrintHello' */
 	    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
-	   
+	   	rc = pthread_create(&thread_id, NULL, doWork, (void*)t); 
 	    /* could not create thread */
 	    if(rc){
 	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
