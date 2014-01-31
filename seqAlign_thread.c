@@ -84,11 +84,9 @@ int computeSimilarity(int x, int y, char* seq1, char* seq2) {
 	int left = dpMatrix[x - 1][y] - GAP_PENALTY;
 	int above = dpMatrix[x][y - 1] - GAP_PENALTY;
 
-	printf("Hello from seq1\n");
 	char a = seq1[x - 1];
-	printf("Hello from seq2\n");
 	char b = seq2[y - 1];
-	printf("Hello from diagonal\n");
+
 	int diagonal = dpMatrix[x - 1][y - 1]
 			+ similarity[charIndex(a)][charIndex(b)];
 
@@ -136,8 +134,6 @@ struct threadInfo f(struct threadInfo data){
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
 
-	printf("Hello from f - got pid %d\n", getpid());
-
     printf("Hello from f - got id %d\n", id);
     printf("Hello from f - got counter %d\n", counter);
 
@@ -145,11 +141,9 @@ struct threadInfo f(struct threadInfo data){
 	
 	printf("Hello from f - matrix change %d\n", dpMatrix[id][counter]);
 
-	//free(dpMatrix);
-
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
-	if((counter == strlen(seq1)) && (id == strlen(seq2))){
+	if(counter == strlen(seq1)){
 	 	
 	}//if
 	else{
@@ -193,7 +187,7 @@ void increment(int id, int counter){
 	counter++; //incrament the counter
 
 	//if a new thread can be made
-	if (counter == -1 && id < strlen(seq1)){
+	if (counter == 1 && id < strlen(seq1)){
 		
 		 int        rc;         		/* return value                           */
 	     pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
