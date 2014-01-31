@@ -144,9 +144,6 @@ struct threadInfo f(struct threadInfo data){
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
 
-	printf("head %d\n", getPosNode(&n_head, id));
-	printf("th_head %d\n", getPosTh(&th_head, id));
-
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1, seq2);
 
 	//If all work is done 
@@ -382,7 +379,7 @@ int main(int argc, char* argv[]) {
     addValNode(&n_head, 1);
     //addValTh(&th_head, thread_id);
 
-    printf("Head: %d\n", getPosNode(&n_head,1));
+    //printf("Head: %d\n", getPosNode(&n_head,1));
     //printf("Th_Head: %d\n", getPosTh(&th_head,1));
 
     /* could not create thread */
