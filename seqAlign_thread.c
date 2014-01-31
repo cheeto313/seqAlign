@@ -177,6 +177,11 @@ void doWork(void* threadInfo) {
 
 	struct threadInfo y = f(data);
 
+	//if the matrix is done 
+	//then stop the program
+	if (counter == strlen(seq1) && id == strlen(seq)){
+
+	}
 }
 
 void increment(int id, int counter){
@@ -347,7 +352,8 @@ int main(int argc, char* argv[]) {
 
     pthread_exit(NULL);
 
-	if (argc == 3) {
+
+	if (argc == 2) {
 		printf("Writing to file (may take some time)\n");
 		char* filename = argv[2];
 		outputMatrix(filename, strlen(seq1), strlen(seq2));
