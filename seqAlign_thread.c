@@ -179,9 +179,13 @@ void doWork(void* threadInfo) {
 	int counter = info -> counter;
 	free(info);
 
+	struct threadInfo data;
+	data.id = id;
+	data.counter = counter;
+
     //pthread_detach(pthread_self());
 
-	struct threadInfo y = f(threadInfo);
+	struct threadInfo y = f(data);
 
 }
 
