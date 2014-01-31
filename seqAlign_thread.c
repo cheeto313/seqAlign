@@ -343,8 +343,11 @@ int main(int argc, char* argv[]) {
 	printf("The thread id is  %d\n", thread_id);
 
     /* create a new thread that will execute 'PrintHello' */
-    addVal(&head, 1);
-    addVal(&head, 0);
+    addVal(&head, 6);
+    addVal(&head, 5);
+    int x = 0;
+    x = getPos(&head, 1);
+    printf("val @ 1 %d\n" x);
 
     rc = pthread_create(&thread_id, NULL, doWork, info);  
     /* could not create thread */
