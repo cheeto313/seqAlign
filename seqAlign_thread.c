@@ -318,7 +318,7 @@ int main(int argc, char* argv[]) {
     pthread_t  thread_id;     	/* thread's ID (just an integer)          */
 
     struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
-    info -> id = id;
+    info -> id = 1;
     info -> counter = 0;
 
 	printf("The thread id is  %d\n", thread_id);
