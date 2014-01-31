@@ -30,9 +30,6 @@ struct node {
 	struct node* next;
 };
 
-//the actual node
-struct node* head = NULL;
-
 long** dpMatrix;
 
 char* seq1 = NULL;
@@ -343,7 +340,8 @@ int main(int argc, char* argv[]) {
     info -> counter = 0;
 
 	printf("The thread id is  %d\n", thread_id);
-
+	//the actual node
+	struct node* head = NULL;
     /* create a new thread that will execute 'PrintHello' */
     addVal(&head, 6);
     addVal(&head, 5);
