@@ -316,7 +316,6 @@ int main(int argc, char* argv[]) {
 	//creates the first unique thread and starts the computing process
 	int        rc;         	/* return value                           */
     pthread_t  thread_id;     	/* thread's ID (just an integer)          */
-    int       id = 1;  /* data passed to the new thread          */
 
     struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
     info -> id = id;
@@ -343,7 +342,6 @@ int main(int argc, char* argv[]) {
 
 	int        rc2;         	/* return value                           */
     pthread_t  thread_id2;     	/* thread's ID (just an integer)          */
-    int        id = 2;  /* data passed to the new thread          */
 
      rc2 = pthread_create(&thread_id2, NULL, doWork, info);  
     /* could not create thread */
