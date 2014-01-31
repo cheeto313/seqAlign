@@ -179,7 +179,7 @@ void doWork(void* threadInfo) {
 
 	//if the matrix is done 
 	//then stop the program
-	if (counter == strlen(seq1) && id == strlen(seq)){
+	if (counter == strlen(seq1) && id == strlen(seq2)){
 
 	}
 }
