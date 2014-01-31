@@ -136,12 +136,7 @@ struct threadInfo f(struct threadInfo data){
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
 
-    printf("Hello from f - got id %d\n", id);
-    printf("Hello from f - got counter %d\n", counter);
-
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1, seq2);
-	
-	printf("Hello from f - matrix change %d\n", dpMatrix[id][counter]);
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
@@ -188,13 +183,12 @@ void doWork(void* threadInfo) {
 
 void increment(int id, int counter){
 
-	printf("Hello from increment - got id %d\n", id);
-	printf("Hello from increment - got counter %d\n", counter);
-
 	counter++; //incrament the counter
 
 	//if a new thread can be made
 	if (counter == 2 && id < strlen(seq1)){
+
+		    printf("thread %d Created!\n", id+1);
 		
 		 int        rc;         		/* return value                           */
 	     pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
@@ -211,8 +205,6 @@ void increment(int id, int counter){
 	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
 	        exit(1);
 	    }
-
-	    printf("\n Created new thread (%d) ... \n", thread_id);
 	}//if
 
 	//If parent thread is still working on the data above
@@ -359,9 +351,6 @@ int main(int argc, char* argv[]) {
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
         exit(1);
     }
-
-    printf("Created new thread (%d) ... \n", thread_id);
-
     pthread_exit(NULL);
 }
 
