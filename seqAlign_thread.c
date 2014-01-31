@@ -230,7 +230,7 @@ void increment(int id, int counter){
 	//If the count is out done with all of the columns 
 	//Then cancel the thread
 	if(counter > strlen(seq2)){
-	 	pthread_cancel(pthread_self());
+	 	//pthread_cancel(pthread_self());
 	}//if
 }//increment
 
