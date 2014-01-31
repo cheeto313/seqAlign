@@ -311,10 +311,6 @@ int main(int argc, char* argv[]) {
     info -> id = id;
     info -> counter = 0;
 
-    {
-    	/* data */
-    };
-
 	printf("The thread id is  %d\n", thread_id);
 
     /* create a new thread that will execute 'PrintHello' */
