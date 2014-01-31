@@ -13,7 +13,6 @@
 #include <assert.h>
 
 #define GAP_PENALTY 10
-#define BLOCKSIZE 1000
 
 int similarity[6][6] = { { 16, 0, 0, 0, 0, 0 }, { 0, 20, 0, 0, 0, 0 }, { 0, 0,
 		20, 0, 0, 0 }, { 0, 0, 0, 20, 0, 12 }, { 0, 0, 0, 0, 20, 0 }, { 0, 0, 0,
@@ -38,7 +37,7 @@ struct th_node {
 
 //the actual head nodes
 struct node* head = NULL;
-struct 
+struct th_node* th_head = NULL;
 
 long** dpMatrix;
 
@@ -145,12 +144,7 @@ struct threadInfo f(struct threadInfo data){
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
 
-    printf("Hello from f - got id %d\n", id);
-    printf("Hello from f - got counter %d\n", counter);
-
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1, seq2);
-	
-	printf("Hello from f - matrix change %d\n", dpMatrix[id][counter]);
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
@@ -197,13 +191,12 @@ void doWork(void* threadInfo) {
 
 void increment(int id, int counter){
 
-	printf("Hello from increment - got id %d\n", id);
-	printf("Hello from increment - got counter %d\n", counter);
-
 	counter++; //incrament the counter
 
 	//if a new thread can be made
 	if (counter == 2 && id < strlen(seq1)){
+
+		    printf("thread %d Created!\n", id+1);
 		
 		 int        rc;         		/* return value                           */
 	     pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
@@ -214,31 +207,31 @@ void increment(int id, int counter){
 
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info);  
+	     addVal(&head, counter);
+
 
 	    /* could not create thread */
 	    if(rc){
 	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
 	        exit(1);
 	    }
-
-	    printf("\n Created new thread (%d) ... \n", thread_id);
 	}//if
 
 	//If parent thread is still working on the data above
 	//Then lock itself
-	if(counter >= counter-1 && (id != 0)){
+	if(counter >= getPos(&head, counter+1) && (id != 1)){
 	}//if
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
-	if(counter > counter+1 && id != strlen(seq1)){
+	if(counter >= getPos(&head, counter-1) && id != strlen(seq1)){
 		
 	}//if
 
 	//If the count is out done with all of the columns 
 	//Then cancel the thread
 	if(counter > strlen(seq2)){
-	 	//pthread_cancel(pthread_self());
+	 	pthread_cancel(pthread_self());
 	}//if
 }//increment
 
@@ -354,21 +347,14 @@ int main(int argc, char* argv[]) {
 
 	printf("The thread id is  %d\n", thread_id);
 
-    /* create a new thread that will execute 'PrintHello' */
-    addVal(&head, 6);
-    addVal(&head, 5);
-    int x = getPos(head, 1);
-    printf("val @ 1: %d\n", x);
+    rc = pthread_create(&thread_id, NULL, doWork, info); 
+    addVal(&head, counter);
 
-    rc = pthread_create(&thread_id, NULL, doWork, info);  
     /* could not create thread */
     if(rc){
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
         exit(1);
     }
-
-    printf("Created new thread (%d) ... \n", thread_id);
-
     pthread_exit(NULL);
 }
 
