@@ -157,15 +157,6 @@ void doWork(void* threadInfo) {
     printf("Hello from doWork - got id %d\n", id);
     printf("Hello from doWork - got counter %d\n", counter);
 
-
-    printf("Hello from doWork - checking head at 1 %d\n", getPos(&head, 1));
-    printf("Hello from doWork - checking th_head 1 %d\n", getPos(&th_head, 1));
-
-
-    printf("Hello from doWork - checking head at 2 %d\n", getPos(&head, 2));
-    printf("Hello from doWork - checking th_head at 2 %d\n", getPos(&th_head, 2));
-
-    	//this needs to be fixed
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
 
 	//If all work is done 
