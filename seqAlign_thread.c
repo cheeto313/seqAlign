@@ -231,12 +231,11 @@ void increment(int id, int counter){
 	 	//pthread_cancel(pthread_self());
 	}//if
 
+	struct threadInfo *newinfo = malloc(sizeof(struct threadInfo)); 
+	newinfo -> id = id;
+	newinfo -> counter = counter;
 
-		 struct threadInfo *newinfo = malloc(sizeof(struct threadInfo)); 
-   		 newinfo -> id = id;
-    	 newinfo -> counter = counter;
-
-		doWork(newinfo);
+	doWork(newinfo);
 
 }//increment
 
