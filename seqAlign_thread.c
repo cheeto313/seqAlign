@@ -10,6 +10,7 @@
 #include <sys/syscall.h>
 #include <string.h>
 #include <pthread.h>
+#include <assert.h>
 
 #define GAP_PENALTY 10
 #define BLOCKSIZE 1000
@@ -252,19 +253,22 @@ void addVal(struct node** head, int val) {
 }
 
 //returns the element at a certain position on a linked list
-int getPos(struct node* head, int pos) {
-	struct node* cur = head;
-
-	int count = 0;
-
-	while(count != NULL){
-	//loop until index is found, then return
-		if(count == pos){
-			return(cur->row);
-		}
-		count++;
-		cur = cur->next;
-	}
+int getPos(struct node* head, int index){
+    struct node* curr = head;
+    int count = 0; /* the index of the node we're currly
+                  looking at */
+    while  (curr != NULL)
+    {
+       if (count == index)
+          return (curr->data);
+       count++;
+       curr = curr->next;
+    }
+   
+    /* if we get to this line, the caller was asking
+       for a non-existent element so we assert fail */
+    assert(0);              
+}
 	/*if(head == NULL){
 		return NULL;
 	}
