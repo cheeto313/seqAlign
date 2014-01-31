@@ -148,8 +148,11 @@ struct threadInfo f(struct threadInfo data){
     printf("Hello from f - got counter %d\n", counter);
 
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
+	
 	printf("Hello from f - matrix change %d\n", dpMatrix[id][counter]);
+
 	//free(dpMatrix);
+
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
 	if((counter == strlen(seq1)) && (id == strlen(seq2))){
@@ -233,13 +236,6 @@ void increment(int id, int counter){
 	if(counter > strlen(seq2)){
 	 	//pthread_cancel(pthread_self());
 	}//if
-
-	struct threadInfo *newinfo = malloc(sizeof(struct threadInfo)); 
-	newinfo -> id = id;
-	newinfo -> counter = counter;
-
-	doWork(newinfo);
-
 }//increment
 
 
