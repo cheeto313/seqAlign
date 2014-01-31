@@ -251,8 +251,19 @@ void addVal(struct node** head, int val) {
 
 //returns the element at a certain position on a linked list
 int getPos(struct node* head, int pos) {
+	struct node* cur = head;
+
+	int count = 0;
+
+	while(count != NULL){
+	//loop until index is found, then return
+	if(count == pos){
+		return(cur->row);
+	}
+	count++;
+	cur = cur->next;
 	
-	if(head == NULL){
+	/*if(head == NULL){
 		return NULL;
 	}
 	while(--pos){
@@ -262,7 +273,7 @@ int getPos(struct node* head, int pos) {
 			return NULL;
 		}
 	}
-	return (head->row);
+	return (head->row);*/
 }
 
 //increments a value in the linked list by one
