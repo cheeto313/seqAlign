@@ -193,7 +193,7 @@ void doWork(void* threadInfo) {
 
 void increment(int id, int counter){
 
-	incVal(&head, id)
+	incVal(&head, id);
 	counter++; //increment the counter
 
 	//if a new thread can be made
