@@ -186,7 +186,7 @@ void doWork(void* threadInfo) {
 	//if the matrix is done 
 	//then stop the program
 	if (id == strlen(seq2)){
-	allDone(); // =)
+		allDone(); // =)
 	}
 }
 
@@ -378,7 +378,7 @@ int main(int argc, char* argv[]) {
 	printf("The thread id is  %d\n", thread_id);
 
     addValNode(&head, 1);
-    addValTh(&th_head, thread_id);
+    //addValTh(&th_head, thread_id);
 
     printf("Head: %d\n", getPosNode(&head,1));
     printf("Th_Head: %d\n", getPosTh(&th_head,1));
