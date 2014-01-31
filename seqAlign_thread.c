@@ -141,8 +141,6 @@ void freeMatrixMemory(int width, int height) {
 
 struct threadInfo f(struct threadInfo data){
 
-
-
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
 
@@ -242,7 +240,16 @@ void increment(int id, int counter){
 
 
 //method to push an element to the linked list
-void addVal(struct node** head, int val) {
+void addValNode(struct node** head, int val) {
+	//allocate memory
+	struct node* n_node = (struct node*) malloc(sizeof(struct node));
+
+	n_node->index = val;
+	n_node->next = (*head);
+	(*head) = n_node;
+}
+
+void addValTh(struct node** th_head, int val) {
 	//allocate memory
 	struct node* n_node = (struct node*) malloc(sizeof(struct node));
 
@@ -280,15 +287,15 @@ int getPos(struct node* head, int x){
 void incVal(struct node* head, int pos){
 	int temp;
 
-		//check for null, if it is make index 1
-		if((head->index) != NULL){
-			temp = head->index;
-			temp++;
-			head->index = temp;
-		} else {
-			temp = 1;
-			head->index = temp;
-		}		
+	//check for null, if it is make index 1
+	if((head->index) != NULL){
+		temp = head->index;
+		temp++;
+		head->index = temp;
+	} else {
+		temp = 1;
+		head->index = temp;
+	}		
 } 
 
 void generateGaps(){
@@ -358,6 +365,9 @@ int main(int argc, char* argv[]) {
 
     addVal(&head, 1);
     addVal(&th_head, thread_id);
+
+    printf("Head: %d\n", getPos(&head,1));
+    printf("Th_Head: %d\n", getPos(&th_head,1));
 
     /* could not create thread */
     if(rc){
