@@ -164,10 +164,10 @@ void freeMatrixMemory(int width, int height) {
 
 }
 
-struct threadWork(struct threadInfo){
+struct threadWork(threadInfo data){
 
-	int id = threadInfo.id;     	/* data received by thread */
-	int counter = threadInfo.counter;
+	int id = data.id;     	/* data received by thread */
+	int counter = data.counter;
 
 	printf("Hello from threadWork - got pid %d\n", getpid());
 
