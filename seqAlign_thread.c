@@ -148,6 +148,7 @@ struct threadInfo f(struct threadInfo data){
     printf("Hello from f - got counter %d\n", counter);
 
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
+	printf("Hello from f - matrix change %d\n", dpMatrix[id][counter]);
 	//free(dpMatrix);
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
