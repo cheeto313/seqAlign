@@ -81,18 +81,7 @@ int charIndex(char c) {
 /* Compute the similarity at a DPM location */
 int computeSimilarity(int x, int y, char* seq1, char* seq2) {
 
-	if (x == 0) {
-		if (y == 0)
-			return 0;
-		return dpMatrix[x][y - 1] - GAP_PENALTY;
-	}
-
-	if (y == 0) {
-		return dpMatrix[x - 1][y] - GAP_PENALTY;
-	}
-	printf("Hello from left\n");
 	int left = dpMatrix[x - 1][y] - GAP_PENALTY;
-	printf("Hello from above\n");
 	int above = dpMatrix[x][y - 1] - GAP_PENALTY;
 
 	printf("Hello from seq1\n");
@@ -152,7 +141,7 @@ struct threadInfo f(struct threadInfo data){
     printf("Hello from f - got id %d\n", id);
     printf("Hello from f - got counter %d\n", counter);
 
-	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
+	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1, seq2);
 	
 	printf("Hello from f - matrix change %d\n", dpMatrix[id][counter]);
 
