@@ -169,8 +169,9 @@ void doWork(void* threadInfo) {
 
 
 		 struct threadInfo *newinfo = malloc(sizeof(struct threadInfo)); 
+
    		 newinfo -> id = id;
-    	 newinfo -> counter = counter;
+    	 newinfo -> counter = counter + 1;
 
 		doWork(newinfo);
 		
@@ -317,10 +318,8 @@ int main(int argc, char* argv[]) {
 	printf("The thread id is  %d\n", thread_id);
 
     /* create a new thread that will execute 'PrintHello' */
-    addVal(&head, 1);
-    addVal(&head, 0);
+    rc = pthread_create(&thread_id, NULL, doWork, info);
 
-    rc = pthread_create(&thread_id, NULL, doWork, info);  
     /* could not create thread */
     if(rc){
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
