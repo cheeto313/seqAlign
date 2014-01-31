@@ -268,12 +268,12 @@ int getPos(struct node* head, int pos) {
 
 	while(count != NULL){
 	//loop until index is found, then return
-	if(count == pos){
-		return(cur->row);
+		if(count == pos){
+			return(cur->row);
+		}
+		count++;
+		cur = cur->next;
 	}
-	count++;
-	cur = cur->next;
-	
 	/*if(head == NULL){
 		return NULL;
 	}
