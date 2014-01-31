@@ -138,23 +138,6 @@ void freeMatrixMemory(int width, int height) {
 	free(dpMatrix);
 }
 
-/*	
-	Compute the values for the DPM 
-	Appears to use the Needleman–Wunsch algorithm for calculation
-*/
-void doWork(void* threadInfo) {
-
-	struct threadInfo* info = (struct threadInfo*) threadInfo;
-
-	int id = info -> id;     	/* data received by thread */
-	int counter = info -> counter;
-	free(info);
-
-    //pthread_detach(pthread_self());
-
-	struct threadInfo y = f(threadInfo);
-
-}
 
 struct threadInfo f(struct threadInfo data){
 
@@ -182,9 +165,25 @@ struct threadInfo f(struct threadInfo data){
 
 		return f(info);
 	}//else
+}//f
 
+/*	
+	Compute the values for the DPM 
+	Appears to use the Needleman–Wunsch algorithm for calculation
+*/
+void doWork(void* threadInfo) {
 
-}//threadWork
+	struct threadInfo* info = (struct threadInfo*) threadInfo;
+
+	int id = info -> id;     	/* data received by thread */
+	int counter = info -> counter;
+	free(info);
+
+    //pthread_detach(pthread_self());
+
+	struct threadInfo y = f(threadInfo);
+
+}
 
 void increment(int id, int counter){
 
