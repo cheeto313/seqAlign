@@ -244,14 +244,11 @@ int getPos(struct node* head, int index){
     while  (curr != NULL)
     {
        if (count == index)
-       		printf("pos: %d\n", (curr->row));
           	return (curr->row);
        count++;
        curr = curr->next;
     }
-   
-    /* if we get to this line, the caller was asking
-       for a non-existent element so we assert fail */
+  
     assert(0);              
 }
 	/*if(head == NULL){
