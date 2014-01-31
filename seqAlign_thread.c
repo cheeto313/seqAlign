@@ -157,7 +157,7 @@ void doWork(void* threadInfo) {
     printf("Hello from doWork - got id %d\n", id);
     printf("Hello from doWork - got counter %d\n", counter);
 
-	//dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
+	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
 
 	//If all work is done 
 	//Then cancel the last thread and return the matrix
@@ -166,7 +166,16 @@ void doWork(void* threadInfo) {
 	}//if
 	else{
 		increment(id, counter);
+
+
+		 struct threadInfo *newinfo = malloc(sizeof(struct threadInfo)); 
+   		 newinfo -> id = id;
+    	 newinfo -> counter = counter;
+
+		doWork(newinfo);
+		
 	}//else
+
 }
 
 void increment(int id, int counter){
@@ -214,13 +223,6 @@ void increment(int id, int counter){
 	if(counter > strlen(seq2)){
 	 	//pthread_cancel(pthread_self());
 	}//if
-
-
-		 struct threadInfo *newinfo = malloc(sizeof(struct threadInfo)); 
-   		 newinfo -> id = id;
-    	 newinfo -> counter = counter;
-
-		doWork(newinfo);
 
 }//increment
 
