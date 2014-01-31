@@ -196,8 +196,8 @@ void increment(int id, int counter){
 	//if a new thread can be made
 	if (counter == 1 && id < strlen(seq1)){
 		
-		int        rc;         		/* return value                           */
-	    pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
+		 int        rc;         		/* return value                           */
+	     pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
 
 		 struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
    		 info -> id = id + 1;
@@ -232,6 +232,14 @@ void increment(int id, int counter){
 	if(counter > strlen(seq2)){
 	 	//pthread_cancel(pthread_self());
 	}//if
+
+
+		 struct threadInfo *newinfo = malloc(sizeof(struct threadInfo)); 
+   		 newinfo -> id = id;
+    	 newinfo -> counter = counter;
+
+		doWork(info);
+
 }//increment
 
 
