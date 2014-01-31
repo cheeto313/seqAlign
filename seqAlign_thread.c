@@ -209,8 +209,8 @@ void increment(int id, int counter){
 
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info);  
-	     addVal(&head, 1);
-	     addVal(&th_head, thread_id);
+	     addValNode(&head, 1);
+	     addValTh(&th_head, thread_id);
 
 
 	    /* could not create thread */
@@ -363,8 +363,8 @@ int main(int argc, char* argv[]) {
 
 	printf("The thread id is  %d\n", thread_id);
 
-    addVal(&head, 1);
-    addVal(&th_head, thread_id);
+    addValNode(&head, 1);
+    addValTh(&th_head, thread_id);
 
     printf("Head: %d\n", getPos(&head,1));
     printf("Th_Head: %d\n", getPos(&th_head,1));
