@@ -248,7 +248,7 @@ int getPos(struct node* head, int pos) {
 			return NULL;
 		}
 	}
-	return head;
+	return (head->row);
 }
 
 //increments a value in the linked list by one
@@ -321,7 +321,6 @@ int main(int argc, char* argv[]) {
     addVal(&th_head, 2);
     addVal(&th_head, 3);
 
-    rc = pthread_create(&thread_id, NULL, doWork, info);  
     /* could not create thread */
     if(rc){
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
