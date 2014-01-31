@@ -350,9 +350,12 @@ int main(int argc, char* argv[]) {
     info -> id = 1;
     info -> counter = 1;
 
-	printf("The thread id is  %d\n", thread_id);
+	
 
     rc = pthread_create(&thread_id, NULL, doWork, info); 
+
+	printf("The thread id is  %d\n", thread_id);
+
     addVal(&head, 1);
     addVal(&th_head, thread_id);
 
