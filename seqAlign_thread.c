@@ -36,7 +36,7 @@ struct th_node {
 };
 
 //the actual head nodes
-struct node* head = NULL;
+struct node* n_head = NULL;
 struct th_node* th_head = NULL;
 
 long** dpMatrix;
@@ -144,7 +144,7 @@ struct threadInfo f(struct threadInfo data){
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
 
-	printf("head %d\n", getPosNode(&head, id));
+	printf("head %d\n", getPosNode(&n_head, id));
 	printf("th_head %d\n", getPosTh(&th_head, id));
 
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1, seq2);
@@ -192,7 +192,7 @@ void doWork(void* threadInfo) {
 
 void increment(int id, int counter){
 
-	incVal(&head, id);
+	incVal(&n_head, id);
 	counter++; //increment the counter
 
 	//if a new thread can be made
@@ -209,7 +209,7 @@ void increment(int id, int counter){
 
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info);  
-	     addValNode(&head, 1);
+	     addValNode(&n_head, 1);
 	     addValTh(&th_head, thread_id);
 
 
@@ -222,12 +222,12 @@ void increment(int id, int counter){
 
 	//If parent thread is still working on the data above
 	//Then lock itself
-	if(counter >= getPosNode(&head, counter+1) && (id != 1)){
+	if(counter >= getPosNode(&n_head, counter+1) && (id != 1)){
 	}//if
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
-	if(counter >= getPosNode(&head, counter-1) && id != strlen(seq1)){
+	if(counter >= getPosNode(&n_head, counter-1) && id != strlen(seq1)){
 		
 	}//if
 
@@ -240,13 +240,13 @@ void increment(int id, int counter){
 
 
 //method to push an element to the linked list
-void addValNode(struct node** head, int val) {
+void addValNode(struct node** n_head, int val) {
 	//allocate memory
 	struct node* n_node = (struct node*) malloc(sizeof(struct node));
 
 	n_node->index = val;
-	n_node->next = (*head);
-	(*head) = n_node;
+	n_node->next = (*n_head);
+	(*n_head) = n_node;
 }
 
 void addValTh(struct node** th_head, int val) {
@@ -259,8 +259,8 @@ void addValTh(struct node** th_head, int val) {
 }
 
 //returns the element at a certain position on a linked list
-int getPosNode(struct node* head, int x){
-    struct node* curr = head;
+int getPosNode(struct node* n_head, int x){
+    struct node* curr = n_head;
     int count = 0; 
     while  (curr != NULL)
     {
@@ -270,6 +270,7 @@ int getPosNode(struct node* head, int x){
        count++;
        curr = curr->next;
     }
+    //debug
     assert(0);              
 }
 
@@ -283,6 +284,7 @@ int getPosTh(struct th_node* head, int x){
        count++;
        curr = curr->next;
     }
+    //debug
     assert(0);              
 }
 	/*if(head == NULL){
