@@ -164,7 +164,7 @@ void freeMatrixMemory(int width, int height) {
 
 }
 
-threadInfo threadWork(struct threadInfo data){
+struct threadWork f(struct threadInfo data){
 
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
@@ -185,8 +185,8 @@ threadInfo threadWork(struct threadInfo data){
 		increment(id, counter);
 
    		struct threadInfo info; 
-    	info -> id = id;
-    	info -> counter = counter + 1;
+    	info.id = id;
+    	info.counter = counter + 1;
 
 		return threadWork(info)
 	}//else
