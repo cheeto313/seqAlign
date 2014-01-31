@@ -185,7 +185,7 @@ void increment(int id, int counter){
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
 		
-		int        rc;         	/* return value                           */
+		int        rc;         		/* return value                           */
 	    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
 	    int        t         = 11;  /* data passed to the new thread          */
 
