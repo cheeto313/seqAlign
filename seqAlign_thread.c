@@ -141,6 +141,10 @@ void freeMatrixMemory(int width, int height) {
 
 struct threadInfo f(struct threadInfo data){
 
+	printf("head %d\n", getPos(&head, id););
+	printf("th_head %d\n", getPos(&th_head, id));
+
+
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
 
@@ -178,8 +182,6 @@ void doWork(void* threadInfo) {
 	data.id = id;
 	data.counter = counter;
 
-    //pthread_detach(pthread_self());
-
 	struct threadInfo y = f(data);
 
 	//if the matrix is done 
@@ -191,7 +193,8 @@ void doWork(void* threadInfo) {
 
 void increment(int id, int counter){
 
-	counter++; //incrament the counter
+	incVal(&head, id)
+	counter++; //increment the counter
 
 	//if a new thread can be made
 	if (counter == 2 && id < strlen(seq1)){
@@ -208,6 +211,7 @@ void increment(int id, int counter){
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info);  
 	     addVal(&head, counter);
+	     addVal(&head, thread_id);
 
 
 	    /* could not create thread */
@@ -348,7 +352,8 @@ int main(int argc, char* argv[]) {
 	printf("The thread id is  %d\n", thread_id);
 
     rc = pthread_create(&thread_id, NULL, doWork, info); 
-    addVal(&head, counter);
+    addVal(&head, 1);
+    addVal(&head, thread_id);
 
     /* could not create thread */
     if(rc){
