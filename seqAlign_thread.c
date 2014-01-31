@@ -211,8 +211,8 @@ void increment(int id, int counter){
 
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info);  
-	     addVal(&head, counter);
-	     addVal(&head, thread_id);
+	     addVal(&head, 1);
+	     addVal(&th_head, thread_id);
 
 
 	    /* could not create thread */
@@ -354,7 +354,7 @@ int main(int argc, char* argv[]) {
 
     rc = pthread_create(&thread_id, NULL, doWork, info); 
     addVal(&head, 1);
-    addVal(&head, thread_id);
+    addVal(&th_head, thread_id);
 
     /* could not create thread */
     if(rc){
