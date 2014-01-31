@@ -345,7 +345,7 @@ int main(int argc, char* argv[]) {
 
 
     rc = pthread_create(&thread_id, NULL, doWork, info); 
-    addVal(&head, counter);
+    addVal(&head, 1);
 
     /* could not create thread */
     if(rc){
