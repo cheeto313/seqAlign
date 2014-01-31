@@ -379,7 +379,7 @@ int main(int argc, char* argv[]) {
 
 	printf("The thread id is  %d\n", thread_id);
 
-    addValNode(&head, 1);
+    addValNode(&n_head, 1);
     //addValTh(&th_head, thread_id);
 
     printf("Head: %d\n", getPosNode(&head,1));
