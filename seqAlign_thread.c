@@ -320,9 +320,6 @@ int main(int argc, char* argv[]) {
     addVal(&head, 1);
     addVal(&head, 0);
 
-    addVal(&th_head, 2);
-    addVal(&th_head, 3);
-
     rc = pthread_create(&thread_id, NULL, doWork, info);  
     /* could not create thread */
     if(rc){
