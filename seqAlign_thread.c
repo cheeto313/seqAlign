@@ -158,7 +158,7 @@ void doWork(void* threadInfo) {
 	int counter = info -> counter;
 	free(info);
 
-    pthread_detach(pthread_self());
+    //pthread_detach(pthread_self());
     printf("Hello from doWork - got id %d\n", id);
     printf("Hello from doWork - got counter %d\n", counter);
 
@@ -180,19 +180,20 @@ void increment(int id, int counter){
 	printf("Hello from increment - got id %d\n", id);
 	printf("Hello from increment - got counter %d\n", counter);
 
-	incVal(&head, getPos(&head, getpid()));
+	//incVal(&head, getPos(&head, getpid()));
 
 	//if a new thread can be made
 	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
 		
 		int        rc;         		/* return value                           */
 	    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
-	    int        t         = 11;  /* data passed to the new thread          */
+	    int        t = 11;  		/* data passed to the new thread          */
 
 	    /* create a new thread that will execute 'PrintHello' */
 	    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
-	    if(rc)			/* could not create thread */
-	    {
+	   
+	    /* could not create thread */
+	    if(rc){
 	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
 	        exit(1);
 	    }
@@ -216,7 +217,7 @@ void increment(int id, int counter){
 	//If the count is out done with all of the columns 
 	//Then cancel the thread
 	if(getPos(&head, getpid()) > strlen(seq2)){
-	 	//pthread_cancel(pthread_self());
+	 	pthread_cancel(pthread_self());
 	 	pthread_exit(NULL);
 	}//if
 }//increment
@@ -249,7 +250,7 @@ int getPos(struct node* head, int pos) {
 }
 
 //increments a value in the linked list by one
-void incVal(struct node* head, int pos){
+/*void incVal(struct node* head, int pos){
 	int temp;
 
 		//check for null, if it is make row 1
@@ -261,8 +262,7 @@ void incVal(struct node* head, int pos){
 			temp = 1;
 			head->row = temp;
 		}		
-}
-
+} */
 
 void generateGaps(){
 	//placing the gaps for the first column
@@ -318,16 +318,13 @@ int main(int argc, char* argv[]) {
 	printf("The thread id is  %d\n", thread_id);
 
     /* create a new thread that will execute 'PrintHello' */
-
     addVal(&head, 1);
     addVal(&head, 0);
 
     rc = pthread_create(&thread_id, NULL, doWork, info);  
-
     
-
-    if(rc)			/* could not create thread */
-    {
+    /* could not create thread */
+    if(rc){
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
         exit(1);
     }
