@@ -164,15 +164,15 @@ void freeMatrixMemory(int width, int height) {
 
 }
 
-struct threadInfo threadWork(struct threadInfo data){
+struct threadInfo f(struct threadInfo data){
 
 	int id = data.id;     	/* data received by thread */
 	int counter = data.counter;
 
-	printf("Hello from threadWork - got pid %d\n", getpid());
+	printf("Hello from f - got pid %d\n", getpid());
 
-    printf("Hello from threadWork - got id %d\n", id);
-    printf("Hello from threadWork - got counter %d\n", counter);
+    printf("Hello from f - got id %d\n", id);
+    printf("Hello from f - got counter %d\n", counter);
 
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
 
