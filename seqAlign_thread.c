@@ -238,7 +238,7 @@ void increment(int id, int counter){
    		 newinfo -> id = id;
     	 newinfo -> counter = counter;
 
-		doWork(info);
+		doWork(newinfo);
 
 }//increment
 
