@@ -30,14 +30,6 @@ struct node {
 	struct node* next;
 };
 
-struct th_node {
-	int pid;
-	struct th_node* next;
-};
-
-//node for the PID tracking
-struct node* th_head = NULL;
-
 //the actual node
 struct node* head = NULL;
 
@@ -150,7 +142,7 @@ void freeMatrixMemory(int width, int height) {
 	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
-	void doWork(void* threadInfo) {
+void doWork(void* threadInfo) {
 
 	struct threadInfo* info = (struct threadInfo*) threadInfo;
 
@@ -353,9 +345,6 @@ int main(int argc, char* argv[]) {
     /* create a new thread that will execute 'PrintHello' */
     addVal(&head, 1);
     addVal(&head, 0);
-
-    addVal(&th_head, 2);
-    addVal(&th_head, 3);
 
     rc = pthread_create(&thread_id, NULL, doWork, info);  
     /* could not create thread */
