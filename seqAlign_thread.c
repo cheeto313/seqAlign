@@ -213,7 +213,6 @@ void increment(int id, int counter){
 	    }
 
 	    printf("\n Created new thread (%d) ... \n", thread_id);
-		pthread_exit(NULL);
 	}//if
 
 	//If parent thread is still working on the data above
