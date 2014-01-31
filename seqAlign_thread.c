@@ -194,14 +194,14 @@ void increment(int id, int counter){
 	counter++; //incrament the counter
 
 	//if a new thread can be made
-	if (counter == 1 && id < strlen(seq1)){
+	if (counter == 2 && id < strlen(seq1)){
 		
 		 int        rc;         		/* return value                           */
 	     pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
 
 		 struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
    		 info -> id = id + 1;
-    	 info -> counter = 0;
+    	 info -> counter = 1;
 
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info);  
@@ -342,7 +342,7 @@ int main(int argc, char* argv[]) {
 
     struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
     info -> id = 1;
-    info -> counter = 0;
+    info -> counter = 1;
 
 	printf("The thread id is  %d\n", thread_id);
 	//the actual node
