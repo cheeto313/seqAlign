@@ -197,7 +197,7 @@ void increment(int id, int counter){
 	if (counter == 1 && id <= strlen(seq1)){
 		
 		int        rc;         		/* return value                           */
-	    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
+	    pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
 
 		 struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
    		 info -> id = id+1;
