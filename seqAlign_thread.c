@@ -256,7 +256,8 @@ int getPos(struct node* head, int index){
     while  (curr != NULL)
     {
        if (count == index)
-          return (curr->row);
+       		printf("pos: %d\n", (curr->row));
+          	return (curr->row);
        count++;
        curr = curr->next;
     }
