@@ -346,8 +346,7 @@ int main(int argc, char* argv[]) {
     addVal(&head, 6);
     addVal(&head, 5);
     int x;
-    x = getPos(head, 1);
-    printf("val @ 1: %d\n", x);
+    printf("val @ 1: %d\n", getPos(head, 1));
 
     rc = pthread_create(&thread_id, NULL, doWork, info);  
     /* could not create thread */
