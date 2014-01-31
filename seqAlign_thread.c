@@ -366,6 +366,6 @@ int main(int argc, char* argv[]) {
 		free(seq1);
 		free(seq2);
 		exit(EXIT_SUCCESS);
-}//main
+}
 
 
