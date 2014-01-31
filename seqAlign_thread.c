@@ -345,7 +345,7 @@ int main(int argc, char* argv[]) {
 	//the actual node
 	struct node* head = NULL;
     /* create a new thread that will execute 'PrintHello' */
-    addVal(&head, 6);
+    addVal(head, 6);
     addVal(&head, 5);
     int x;
     printf("val @ 1: %d\n", getPos(head, 1));
