@@ -30,14 +30,6 @@ struct node {
 	struct node* next;
 };
 
-struct th_node {
-	int pid;
-	struct th_node* next;
-};
-
-//node for the PID tracking
-struct node* th_head = NULL;
-
 //the actual node
 struct node* head = NULL;
 
