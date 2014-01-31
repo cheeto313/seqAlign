@@ -198,11 +198,14 @@ void increment(int id, int counter){
 		
 		int        rc;         		/* return value                           */
 	    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
-	    int        t = 11;  		/* data passed to the new thread          */
+
+		 struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
+   		 info -> id = id+1;
+    	 info -> counter = 0;
 
 	    /* create a new thread that will execute 'PrintHello' */
 	    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
-	   	rc = pthread_create(&thread_id, NULL, doWork, (void*)t); 
+
 	    /* could not create thread */
 	    if(rc){
 	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
@@ -215,21 +218,19 @@ void increment(int id, int counter){
 
 	//If parent thread is still working on the data above
 	//Then lock itself
-	if(getPos(&head, getpid()) >= getPos(&head, getpid()-1) && (getpid() != 0)){
-		pthread_mutex_lock(pthread_self());
+	if(counter >= counter-1 && (getpid() != 0)){
 	}//if
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
 	if(getPos(&head, getpid()) > getPos(&head, getpid()+1) && (getpid() != strlen(seq1))){
-		pthread_mutex_unlock(pthread_getspecific(getpid()+1));
+		
 	}//if
 
 	//If the count is out done with all of the columns 
 	//Then cancel the thread
-	if(getPos(&head, getpid()) > strlen(seq2)){
+	if(counter > strlen(seq2)){
 	 	pthread_cancel(pthread_self());
-	 	pthread_exit(NULL);
 	}//if
 }//increment
 
