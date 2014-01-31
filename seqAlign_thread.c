@@ -200,7 +200,7 @@ void increment(int id, int counter){
 	    pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
 
 		 struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
-   		 info -> id = id+1;
+   		 info -> id = id + 1;
     	 info -> counter = 0;
 
 	    /* create a new thread that will execute 'PrintHello' */
@@ -213,17 +213,17 @@ void increment(int id, int counter){
 	    }
 
 	    printf("\n Created new thread (%d) ... \n", thread_id);
-
+		pthread_exit(NULL);
 	}//if
 
 	//If parent thread is still working on the data above
 	//Then lock itself
-	if(counter >= counter-1 && (getpid() != 0)){
+	if(counter >= counter-1 && (id != 0)){
 	}//if
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
-	if(getPos(&head, getpid()) > getPos(&head, getpid()+1) && (getpid() != strlen(seq1))){
+	if(counter > counter+1) && (id != strlen(seq1))){
 		
 	}//if
 
