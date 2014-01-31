@@ -254,8 +254,8 @@ void addValTh(struct node** th_head, int val) {
 	struct node* n_node = (struct node*) malloc(sizeof(struct node));
 
 	n_node->index = val;
-	n_node->next = (*head);
-	(*head) = n_node;
+	n_node->next = (*th_head);
+	(*th_head) = n_node;
 }
 
 //returns the element at a certain position on a linked list
