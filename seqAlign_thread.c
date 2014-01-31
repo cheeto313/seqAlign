@@ -204,7 +204,7 @@ void increment(int id, int counter){
     	 info -> counter = 0;
 
 	    /* create a new thread that will execute 'PrintHello' */
-	    rc = pthread_create(&thread_id, NULL, doWork, (void*)t);  
+	     rc = pthread_create(&thread_id, NULL, doWork, info);  
 
 	    /* could not create thread */
 	    if(rc){
@@ -223,7 +223,7 @@ void increment(int id, int counter){
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
-	if(counter > counter+1) && (id != strlen(seq1))){
+	if(counter > counter+1 && id != strlen(seq1)){
 		
 	}//if
 
@@ -339,19 +339,6 @@ int main(int argc, char* argv[]) {
     }
 
     printf("Created new thread (%d) ... \n", thread_id);
-    
-
-	int        rc2;         	/* return value                           */
-    pthread_t  thread_id2;     	/* thread's ID (just an integer)          */
-
-     rc2 = pthread_create(&thread_id2, NULL, doWork, info);  
-    /* could not create thread */
-    if(rc2){
-        printf("\n ERROR: return code from pthread_create is %d \n", rc2);
-        exit(1);
-    }
-
-    printf("Created new thread (%d) ... \n", thread_id2);
 
     pthread_exit(NULL);
 
