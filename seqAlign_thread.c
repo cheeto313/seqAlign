@@ -162,6 +162,14 @@ void doWork(void* threadInfo) {
     printf("Hello from doWork - got id %d\n", id);
     printf("Hello from doWork - got counter %d\n", counter);
 
+
+    printf("Hello from doWork - checking head at 0 %d\n", getPos(&head, 1));
+    printf("Hello from doWork - checking th_head %d\n", getPos(&th_head, 2));
+
+
+    printf("Hello from doWork - checking head at 1 %d\n", getPos(&head, 1));
+    printf("Hello from doWork - checking th_head at 1 %d\n", getPos(&th_head, 2));
+
     	//this needs to be fixed
 	dpMatrix[id][counter] = computeSimilarity(id, counter, seq1[id], seq2[counter]);
 
@@ -180,10 +188,10 @@ void increment(int id, int counter){
 	printf("Hello from increment - got id %d\n", id);
 	printf("Hello from increment - got counter %d\n", counter);
 
-	//incVal(&head, getPos(&head, getpid()));
+	counter++; //incrament the counter
 
 	//if a new thread can be made
-	if ((getPos(&head, getpid()) == 1) && (getpid() <= strlen(seq1))){
+	if (counter == 1 && id <= strlen(seq1)){
 		
 		int        rc;         		/* return value                           */
 	    pthread_t  thread_id;     	/* thread's ID (just an integer)          */
@@ -311,15 +319,14 @@ int main(int argc, char* argv[]) {
     info -> id = id;
     info -> counter = 0;
 
-    {
-    	/* data */
-    };
-
 	printf("The thread id is  %d\n", thread_id);
 
     /* create a new thread that will execute 'PrintHello' */
     addVal(&head, 1);
     addVal(&head, 0);
+
+    addVal(&th_head, 2);
+    addVal(&th_head, 3);
 
     rc = pthread_create(&thread_id, NULL, doWork, info);  
     
