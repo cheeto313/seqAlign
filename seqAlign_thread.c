@@ -150,7 +150,7 @@ void freeMatrixMemory(int width, int height) {
 	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
-struct doWork(void* threadInfo) {
+	void doWork(void* threadInfo) {
 
 	struct threadInfo* info = (struct threadInfo*) threadInfo;
 
