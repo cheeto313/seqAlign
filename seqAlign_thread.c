@@ -30,6 +30,14 @@ struct node {
 	struct node* next;
 };
 
+struct th_node {
+	int pid;
+	struct th_node* next;
+};
+
+//node for the PID tracking
+struct node* th_head = NULL;
+
 //the actual node
 struct node* head = NULL;
 
@@ -142,7 +150,7 @@ void freeMatrixMemory(int width, int height) {
 	Compute the values for the DPM 
 	Appears to use the Needleman–Wunsch algorithm for calculation
 */
-void doWork(void* threadInfo) {
+struct doWork(void* threadInfo) {
 
 	struct threadInfo* info = (struct threadInfo*) threadInfo;
 
@@ -167,16 +175,12 @@ void doWork(void* threadInfo) {
 	else{
 		increment(id, counter);
 
+   		struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
+    	info -> id = id;
+    	info -> counter = counter + 1;
 
-		 struct threadInfo *newinfo = malloc(sizeof(struct threadInfo)); 
-
-   		 newinfo -> id = id;
-    	 newinfo -> counter = counter + 1;
-
-		doWork(newinfo);
-		
+		return doWork(info)
 	}//else
-
 }
 
 void increment(int id, int counter){
@@ -224,6 +228,13 @@ void increment(int id, int counter){
 	if(counter > strlen(seq2)){
 	 	//pthread_cancel(pthread_self());
 	}//if
+
+
+		 struct threadInfo *newinfo = malloc(sizeof(struct threadInfo)); 
+   		 newinfo -> id = id;
+    	 newinfo -> counter = counter;
+
+		doWork(newinfo);
 
 }//increment
 
@@ -318,8 +329,13 @@ int main(int argc, char* argv[]) {
 	printf("The thread id is  %d\n", thread_id);
 
     /* create a new thread that will execute 'PrintHello' */
-    rc = pthread_create(&thread_id, NULL, doWork, info);
+    addVal(&head, 1);
+    addVal(&head, 0);
 
+    addVal(&th_head, 2);
+    addVal(&th_head, 3);
+
+    rc = pthread_create(&thread_id, NULL, doWork, info);  
     /* could not create thread */
     if(rc){
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
