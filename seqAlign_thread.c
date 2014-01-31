@@ -194,7 +194,7 @@ void increment(int id, int counter){
 	counter++; //incrament the counter
 
 	//if a new thread can be made
-	if (counter == 1 && id <= strlen(seq1)){
+	if (counter == 1 && id < strlen(seq1)){
 		
 		int        rc;         		/* return value                           */
 	    pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
