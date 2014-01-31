@@ -163,7 +163,7 @@ struct threadInfo f(struct threadInfo data){
 
    		struct threadInfo info; 
     	info.id = id;
-    	info.counter = counter + 1;
+    	info.counter = counter;
 
 		return f(info);
 	}//else
