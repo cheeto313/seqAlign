@@ -27,9 +27,18 @@ struct threadInfo {
 
 //struct for linked list
 struct node {
-	int row;
+	int index;
 	struct node* next;
 };
+
+struct th_node {
+	int index;
+	struct th_node* th_next;
+};
+
+//the actual head nodes
+struct node* head = NULL;
+struct 
 
 long** dpMatrix;
 
@@ -239,23 +248,22 @@ void addVal(struct node** head, int val) {
 	//allocate memory
 	struct node* n_node = (struct node*) malloc(sizeof(struct node));
 
-	n_node->row = val;
+	n_node->index = val;
 	n_node->next = (*head);
 	(*head) = n_node;
 }
 
 //returns the element at a certain position on a linked list
-int getPos(struct node* head, int index){
+int getPos(struct node* head, int x){
     struct node* curr = head;
     int count = 0; 
     while  (curr != NULL)
     {
-       if (count == index)
-          	return (curr->row);
+       if (count == x)
+          	return (curr->index);
        count++;
        curr = curr->next;
     }
-  
     assert(0);              
 }
 	/*if(head == NULL){
@@ -268,22 +276,22 @@ int getPos(struct node* head, int index){
 			return NULL;
 		}
 	}
-	return (head->row);*/
+	return (head->index);*/
 
 //increments a value in the linked list by one
-/*void incVal(struct node* head, int pos){
+void incVal(struct node* head, int pos){
 	int temp;
 
-		//check for null, if it is make row 1
-		if((head->row) != NULL){
-			temp = head->row;
+		//check for null, if it is make index 1
+		if((head->index) != NULL){
+			temp = head->index;
 			temp++;
-			head->row = temp;
+			head->index = temp;
 		} else {
 			temp = 1;
-			head->row = temp;
+			head->index = temp;
 		}		
-} */
+} 
 
 void generateGaps(){
 	//placing the gaps for the first column
@@ -345,8 +353,7 @@ int main(int argc, char* argv[]) {
     info -> counter = 1;
 
 	printf("The thread id is  %d\n", thread_id);
-	//the actual node
-	struct node* head = NULL;
+
     /* create a new thread that will execute 'PrintHello' */
     addVal(&head, 6);
     addVal(&head, 5);
