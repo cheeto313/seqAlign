@@ -90,7 +90,7 @@ int computeSimilarity(int x, int y, char* seq1, char* seq2) {
 		return dpMatrix[x - 1][y] - GAP_PENALTY;
 	}
 
-	int left = dpMatrix[x - 1][y] - GAP_PENALTY;
+	//int left = dpMatrix[x - 1][y] - GAP_PENALTY;
 	int above = dpMatrix[x][y - 1] - GAP_PENALTY;
 
 	char a = seq1[x - 1];
@@ -163,7 +163,7 @@ struct threadInfo f(struct threadInfo data){
 
    		struct threadInfo info; 
     	info.id = id;
-    	info.counter = counter;
+    	info.counter = counter + 1;
 
 		return f(info);
 	}//else
