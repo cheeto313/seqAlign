@@ -177,8 +177,8 @@ void doWork(void* threadInfo) {
 
 void increment(int id, int counter){
 
-	printf("Hello from increment - got %d\n", id);
-	printf("Hello from increment - got %d\n", counter);
+	printf("Hello from increment - got id %d\n", id);
+	printf("Hello from increment - got counter %d\n", counter);
 
 	incVal(&head, getPos(&head, getpid()));
 
