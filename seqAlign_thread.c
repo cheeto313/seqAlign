@@ -47,6 +47,8 @@ int numBlocks_x, numBlocks_y;
 
 int** queued;
 
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
 struct node* create_list(int index, int id) {
     struct node *ptr = (struct node*)malloc(sizeof(struct node));
     if(NULL == ptr)
@@ -280,7 +282,7 @@ void increment(int id, int counter){
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info); 
 
-
+		 pthread_mutex_lock(&mutex);
 	    /* could not create thread */
 	    if(rc){
 	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
