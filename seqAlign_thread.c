@@ -32,7 +32,7 @@ struct node {
 
 struct th_node {
 	int index;
-	struct th_node* th_next;
+	struct th_node* next;
 };
 
 //the actual head nodes
@@ -267,8 +267,7 @@ int getPosNode(struct node* n_head, int x){
        count++;
        curr = curr->next;
     }
-    //debug
-    //assert(0);              
+    assert(0);              
 }
 
 int getPosTh(struct th_node* head, int x){
@@ -281,8 +280,7 @@ int getPosTh(struct th_node* head, int x){
        count++;
        curr = curr->next;
     }
-    //debug
-    //assert(0);              
+    assert(0);              
 }
 	/*if(head == NULL){
 		return NULL;
@@ -379,7 +377,7 @@ int main(int argc, char* argv[]) {
     addValNode(&n_head, 1);
     //addValTh(&th_head, thread_id);
 
-    //printf("Head: %d\n", getPosNode(&n_head,1));
+    printf("Head at 1 is : %d\n", getPosNode(&n_head,1));
     //printf("Th_Head: %d\n", getPosTh(&th_head,1));
 
     /* could not create thread */
