@@ -372,7 +372,7 @@ int main(int argc, char* argv[]) {
 
     ptr = get_in_list(1, NULL);
     printf("looking the the index at 1 and got %d\n", ptr->index);
-    printf("looking the the id at 1 and got %d\n", ptr->index);
+    printf("looking the the id at 1 and got %d\n", ptr->id);
     /* could not create thread */
     if(rc){
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
