@@ -95,10 +95,10 @@ struct node* add_to_counter_list(int val)
 struct test_struct*  get_in_counter_list(int val, struct node **prev) {
     struct node *ptr = n_head;
     struct node *tmp = NULL;
-    val = val--;
+    
     printf("\n Searching the list for index [%d] \n",val);
 
-    for (int i = 0; i < val; i++) {
+    for (int i = 1; i < val; i++) {
             tmp = ptr;
             ptr = ptr->next;
     }//for
