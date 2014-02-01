@@ -99,7 +99,7 @@ struct node* get_in_counter_list(int val, struct node **prev) {
 
     printf("\n Searching the list for index [%d] \n",val);
 
-    for (int i = 0; i < val; i++)
+    for (int i = 0; i < val; i++) {
             tmp = ptr;
             ptr = ptr->next;
     }//for
