@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/syscall.h>
+#include <stdbool.h>
 #include <string.h>
 #include <pthread.h>
 #include <assert.h>
@@ -67,7 +68,7 @@ struct node* create_list(int val) {
     return ptr;
 }
 
-struct node* add_to_count_list(int val)
+struct node* add_to_counter_list(int val)
 {
     if(NULL == n_head){
         return (create_list(val));
@@ -75,7 +76,7 @@ struct node* add_to_count_list(int val)
 
         printf("\n Adding node to end of list with value [%d]\n",val);
    
-    struct test_struct *ptr = (struct test_struct*)malloc(sizeof(struct test_struct));
+    struct node *ptr = (struct test_struct*)malloc(sizeof(struct node));
     
     if(NULL == ptr) {
         printf("\n Node creation failed \n");
@@ -85,8 +86,8 @@ struct node* add_to_count_list(int val)
     ptr->index = val;
     ptr->next = NULL;
     
-        curr->next = ptr;
-        curr = ptr;
+        n_curr->next = ptr;
+        n_curr = ptr;
 
     return ptr;
 }
