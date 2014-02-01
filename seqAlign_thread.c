@@ -259,7 +259,6 @@ void doWork(void* threadInfo) {
 
 void increment(int id, int counter){
 
-	incVal(&n_head, id);
 	counter++; //increment the counter
 
 	//if a new thread can be made
@@ -275,9 +274,7 @@ void increment(int id, int counter){
     	 info -> counter = 1;
 
 	    /* create a new thread that will execute 'PrintHello' */
-	     rc = pthread_create(&thread_id, NULL, doWork, info);  
-	     addValNode(&n_head, 1);
-	     addValTh(&th_head, thread_id);
+	     rc = pthread_create(&thread_id, NULL, doWork, info); 
 
 
 	    /* could not create thread */
@@ -305,79 +302,6 @@ void increment(int id, int counter){
 	}//if
 }//increment
 
-
-//method to push an element to the linked list
-void addValNode(struct node** n_head, int val) {
-	//allocate memory
-	struct node *n_node = (struct node*) malloc(sizeof(struct node));
-
-	n_node->index = val;
-	n_node->next = NULL;
-	(*n_head) = n_node;
-}
-
-void addValTh(struct node** th_head, int val) {
-	//allocate memory
-	struct node* n_node = (struct node*) malloc(sizeof(struct node));
-
-	n_node->index = val;
-	n_node->next = (*th_head);
-	(*th_head) = n_node;
-}
-//nodes are getting crossed somewhere...
-//returns the element at a certain position on a linked list
-int getPosNode(struct node* n_head, int x){
-    struct node* curr = n_head;
-    int count = 0; 
-    while  (curr != NULL)
-    {
-       if (count == x){
-          	return (curr->index);
-       }
-       count++;
-       curr = curr->next;
-    }
-    assert(0);              
-}
-
-int getPosTh(struct th_node* head, int x){
-    struct node* curr = head;
-    int count = 0; 
-    while  (curr != NULL){
-       if (count == x){
-          	return (curr->index);
-       }
-       count++;
-       curr = curr->next;
-    }
-    assert(0);              
-}
-	/*if(head == NULL){
-		return NULL;
-	}
-	while(--pos){
-		if(head->next){
-			head = head->next;
-		} else {
-			return NULL;
-		}
-	}
-	return (head->index);*/
-
-//increments a value in the linked list by one
-void incVal(struct node* head, int pos){
-	int temp;
-
-	//check for null, if it is make index 1
-	if((head->index) != NULL){
-		temp = head->index;
-		temp++;
-		head->index = temp;
-	} else {
-		temp = 1;
-		head->index = temp;
-	}		
-} 
 
 void generateGaps(){
 	//placing the gaps for the first column
