@@ -95,7 +95,6 @@ struct node* add_to_counter_list(int val)
 int get_in_counter_list(int val, struct node **prev) {
     struct node *ptr = n_head;
     struct node *tmp = NULL;
-    bool found = true;
 
     printf("\n Searching the list for index [%d] \n",val);
 
@@ -104,16 +103,10 @@ int get_in_counter_list(int val, struct node **prev) {
             ptr = ptr->next;
     }//for
 
-    if(true == found)
-    {
+
     	if (prev) 
             *prev = tmp;
              return ptr;
-               }
-    else{
-        return NULL;
-    }
- 
 } //get_in_counter_list
 
 void print_counter_list(void) {
@@ -463,6 +456,8 @@ int main(int argc, char* argv[]) {
         add_to_counter_list(i);
 
     print_counter_list();
+
+    printf("looking the the elemnt at 1 and got %d\n" get_in_counter_list(1))
 
     /* could not create thread */
     if(rc){
