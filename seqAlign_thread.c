@@ -99,15 +99,6 @@ struct test_struct*  get_in_list(int val, struct node **prev) {
              return ptr;
 } //get_in_counter_list
 
-void incNode(struct node **node, int pos){
-    struct node *inc = get_in_list(pos, NULL);
-    
-    int temp;
-    temp = (inc->index);
-    temp++;
-    (inc->index) = temp;
-}
-
 void print_list(void) {
     struct node *ptr = head;
 
@@ -279,7 +270,7 @@ void increment(int id, int counter){
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info); 
 
-
+	     	pthread_mutex_lock(pthread_self());
 	    /* could not create thread */
 	    if(rc){
 	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
@@ -377,12 +368,6 @@ int main(int argc, char* argv[]) {
     for(i = 5; i<10; i++)
         add_to_list(i, i*10);
 
-    print_list();
-    
-    incNode(&head,3);
-    
-    print_list();
-    
     ptr = get_in_list(1, NULL);
     printf("looking the the index at 1 and got %d\n", ptr->index);
     printf("looking the the id at 1 and got %d\n", ptr->id);
