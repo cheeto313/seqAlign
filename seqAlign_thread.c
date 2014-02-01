@@ -457,8 +457,8 @@ int main(int argc, char* argv[]) {
 
     print_counter_list();
 
-    int g = get_in_counter_list(1);
-    printf("looking the the elemnt at 1 and got %d\n" g);
+    int g = get_in_counter_list(1, NULL);
+    printf("looking the the elemnt at 1 and got %d\n", g);
 
     /* could not create thread */
     if(rc){
