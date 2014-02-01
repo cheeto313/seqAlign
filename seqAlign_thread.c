@@ -465,7 +465,7 @@ int main(int argc, char* argv[]) {
     print_counter_list();
 
     for(i = 5; i<10; i++)
-        add_to_list(i);
+        add_to_counter_list(i);
 
     print_counter_list();
 
