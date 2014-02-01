@@ -27,16 +27,18 @@ struct threadInfo {
 //struct for linked list
 struct node {
 	int index;
-	struct node* next;
+	struct node *next;
 };
 
 struct th_node {
 	int index;
-	struct th_node* next;
+	struct th_node *next;
 };
 
 //the actual head nodes
-struct node* n_head = NULL;
+struct node *n_head = NULL;
+struct node *n_curr = NULL;
+
 struct th_node* th_head = NULL;
 
 long** dpMatrix;
@@ -49,6 +51,88 @@ char* filename;
 int numBlocks_x, numBlocks_y;
 
 int** queued;
+
+struct node* create_list(int val) {
+    printf("\n creating node_list with headnode as [%d]\n",val);
+    struct node *ptr = (struct node*)malloc(sizeof(struct node));
+    if(NULL == ptr)
+    {
+        printf("\n Node creation failed \n");
+        return NULL;
+    }
+    ptr->index = val;
+    ptr->next = NULL;
+
+    n_head = n_curr = ptr;
+    return ptr;
+}
+
+struct node* add_to_count_list(int val)
+{
+    if(NULL == n_head){
+        return (create_list(val));
+    } //if
+
+        printf("\n Adding node to end of list with value [%d]\n",val);
+   
+    struct test_struct *ptr = (struct test_struct*)malloc(sizeof(struct test_struct));
+    
+    if(NULL == ptr) {
+        printf("\n Node creation failed \n");
+        return NULL;
+    }//if
+
+    ptr->index = val;
+    ptr->next = NULL;
+    
+        curr->next = ptr;
+        curr = ptr;
+
+    return ptr;
+}
+
+struct node* search_in_counter_list(int val, struct node **prev)
+{
+    struct node *ptr = n_head;
+    struct node *tmp = NULL;
+    bool found = false;
+
+    printf("\n Searching the list for value [%d] \n",val);
+
+    while(ptr != NULL) {
+        if(ptr->index == val) {
+            found = true;
+            break;
+        }
+        else{
+            tmp = ptr;
+            ptr = ptr->next;
+        }
+    }
+
+    if(true == found) {
+        if(prev)
+            *prev = tmp;
+        return ptr;
+    }
+    else{
+        return NULL;
+    }
+}
+
+void print_counter_list(void) {
+    struct node *ptr = head;
+
+    printf("\n -------Printing list Start------- \n");
+    while(ptr != NULL) {
+        printf("\n [%d] \n",ptr->val);
+        ptr = ptr->next;
+    }
+    printf("\n -------Printing list End------- \n");
+
+    return;
+}
+
 
 /* Find the max of three numbers */
 int max(int a, int b, int c) {
@@ -239,10 +323,10 @@ void increment(int id, int counter){
 //method to push an element to the linked list
 void addValNode(struct node** n_head, int val) {
 	//allocate memory
-	struct node* n_node = (struct node*) malloc(sizeof(struct node));
+	struct node *n_node = (struct node*) malloc(sizeof(struct node));
 
 	n_node->index = val;
-	n_node->next = (*n_head);
+	n_node->next = NULL;
 	(*n_head) = n_node;
 }
 
@@ -374,14 +458,15 @@ int main(int argc, char* argv[]) {
 
 	printf("The thread id is  %d\n", thread_id);
 
-	addValNode(&n_head, 0);
-    addValNode(&n_head, 1);
-    addValNode(&n_head, 2);
-    
-    //addValTh(&th_head, thread_id);
+ 	int i = 0;
+    struct node *ptr = NULL;
 
-    printf("Head at 1 is : %d\n", getPosNode(&n_head,1));
-    //printf("Th_Head: %d\n", getPosTh(&th_head,1));
+    print_counter_list();
+
+    for(i = 5; i<10; i++)
+        add_to_list(i);
+
+    print_counter_list();
 
     /* could not create thread */
     if(rc){
