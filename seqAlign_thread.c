@@ -92,34 +92,18 @@ struct node* add_to_counter_list(int val)
     return ptr;
 }
 
-struct node* search_in_counter_list(int val, struct node **prev)
-{
+struct node* get_in_counter_list(int val, struct node **prev) {
     struct node *ptr = n_head;
     struct node *tmp = NULL;
-    bool found = false;
 
     printf("\n Searching the list for value [%d] \n",val);
 
-    while(ptr != NULL) {
-        if(ptr->index == val) {
-            found = true;
-            break;
-        }
-        else{
+    for (int i = 0; i < val; i++)
             tmp = ptr;
             ptr = ptr->next;
-        }
-    }
-
-    if(true == found) {
-        if(prev)
+    }//for
             *prev = tmp;
-        return ptr;
-    }
-    else{
-        return NULL;
-    }
-}
+} //get_in_counter_list
 
 void print_counter_list(void) {
     struct node *ptr = n_head;
@@ -304,12 +288,12 @@ void increment(int id, int counter){
 
 	//If parent thread is still working on the data above
 	//Then lock itself
-	if(counter >= getPosNode(&n_head, counter+1) && (id != 1)){
+	if(counter >= 1 && (id != 1)){
 	}//if
 
 	//If child thread is locked and can be doing work
 	//Then unlock child
-	if(counter >= getPosNode(&n_head, counter-1) && id != strlen(seq1)){
+	if(counter >= 1 && id != strlen(seq1)){
 		
 	}//if
 
