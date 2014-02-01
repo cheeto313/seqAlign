@@ -96,13 +96,19 @@ struct node* get_in_counter_list(int val, struct node **prev) {
     struct node *ptr = n_head;
     struct node *tmp = NULL;
 
-    printf("\n Searching the list for value [%d] \n",val);
+    printf("\n Searching the list for index [%d] \n",val);
 
     for (int i = 0; i < val; i++)
             tmp = ptr;
             ptr = ptr->next;
     }//for
+    	if(prev){
             *prev = tmp;
+             return ptr;
+              }
+    else{
+        return NULL;
+    }
 } //get_in_counter_list
 
 void print_counter_list(void) {
