@@ -28,19 +28,13 @@ struct threadInfo {
 //struct for linked list
 struct node {
 	int index;
+	int id;
 	struct node *next;
 };
 
-struct th_node {
-	int index;
-	struct th_node *next;
-};
-
 //the actual head nodes
-struct node *n_head = NULL;
-struct node *n_curr = NULL;
-
-struct th_node* th_head = NULL;
+struct node *head = NULL;
+struct node *curr = NULL;
 
 long** dpMatrix;
 
@@ -53,7 +47,7 @@ int numBlocks_x, numBlocks_y;
 
 int** queued;
 
-struct node* create_list(int val) {
+struct node* create_list(int index, int id) {
     printf("\n creating node_list with headnode as [%d]\n",val);
     struct node *ptr = (struct node*)malloc(sizeof(struct node));
     if(NULL == ptr)
@@ -61,17 +55,18 @@ struct node* create_list(int val) {
         printf("\n Node creation failed \n");
         return NULL;
     }
-    ptr->index = val;
+    ptr->index = index;
+    ptr->id = id;
     ptr->next = NULL;
 
-    n_head = n_curr = ptr;
+    head = curr = ptr;
     return ptr;
 }
 
-struct node* add_to_counter_list(int val)
+struct node* add_to_list(int index, int id)
 {
-    if(NULL == n_head){
-        return (create_list(val));
+    if(NULL == head){
+        return (create_list(index, id));
     } //if
 
         printf("\n Adding node to end of list with value [%d]\n",val);
@@ -83,19 +78,20 @@ struct node* add_to_counter_list(int val)
         return NULL;
     }//if
 
-    ptr->index = val;
+    ptr->index = index;
+    ptr->id = id;
     ptr->next = NULL;
     
-        n_curr->next = ptr;
-        n_curr = ptr;
+        curr->next = ptr;
+        curr = ptr;
 
     return ptr;
 }
 
-struct test_struct*  get_in_counter_list(int val, struct node **prev) {
-    struct node *ptr = n_head;
+struct test_struct*  get_in_list(int val, struct node **prev) {
+    struct node *ptr = head;
     struct node *tmp = NULL;
-    
+
     printf("\n Searching the list for index [%d] \n",val);
 
     for (int i = 1; i < val; i++) {
@@ -109,12 +105,13 @@ struct test_struct*  get_in_counter_list(int val, struct node **prev) {
              return ptr;
 } //get_in_counter_list
 
-void print_counter_list(void) {
-    struct node *ptr = n_head;
+void print_list(void) {
+    struct node *ptr = head;
 
     printf("\n -------Printing list Start------- \n");
     while(ptr != NULL) {
-        printf("\n [%d] \n",ptr->index);
+        printf("\n index [%d] \n",ptr->index);
+        printf("\n id [%d] \n",ptr->id);
         ptr = ptr->next;
     }
     printf("\n -------Printing list End------- \n");
@@ -450,16 +447,14 @@ int main(int argc, char* argv[]) {
  	int i = 0;
     struct node *ptr = NULL;
 
-    print_counter_list();
-
     for(i = 5; i<10; i++)
-        add_to_counter_list(i);
+        add_to_list(i, i*10);
 
-    print_counter_list();
+    print_list();
 
-    ptr = get_in_counter_list(1, NULL);
-    printf("looking the the elemnt at 1 and got %d\n", ptr->index);
-
+    ptr = get_in_list(1, NULL);
+    printf("looking the the index at 1 and got %d\n", ptr->index);
+    printf("looking the the id at 1 and got %d\n", ptr->index);
     /* could not create thread */
     if(rc){
         printf("\n ERROR: return code from pthread_create is %d \n", rc);
