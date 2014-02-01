@@ -92,7 +92,7 @@ struct node* add_to_counter_list(int val)
     return ptr;
 }
 
-struct node* get_in_counter_list(int val, struct node **prev) {
+int get_in_counter_list(int val, struct node **prev) {
     struct node *ptr = n_head;
     struct node *tmp = NULL;
     bool found = true;
