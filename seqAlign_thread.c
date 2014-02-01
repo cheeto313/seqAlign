@@ -102,13 +102,12 @@ struct node* get_in_counter_list(int val, struct node **prev) {
             tmp = ptr;
             ptr = ptr->next;
     }//for
-    	if(prev){
+
+    	if (prev) 
             *prev = tmp;
              return ptr;
-              }
-    else{
-        return NULL;
-    }
+              
+ 
 } //get_in_counter_list
 
 void print_counter_list(void) {
