@@ -85,6 +85,16 @@ struct node* add_to_list(int index, int id)
     return ptr;
 }
 
+void incNode(struct node **node, int pos){
+    struct node *inc = get_in_list(pos, NULL);
+    
+    int temp;
+    temp = (inc->index);
+    temp++;
+    (inc->index) = temp;
+}
+
+
 struct test_struct*  get_in_list(int val, struct node **prev) {
     struct node *ptr = head;
     struct node *tmp = NULL;
@@ -270,7 +280,7 @@ void increment(int id, int counter){
 	    /* create a new thread that will execute 'PrintHello' */
 	     rc = pthread_create(&thread_id, NULL, doWork, info); 
 
-	     	pthread_mutex_lock(pthread_self());
+
 	    /* could not create thread */
 	    if(rc){
 	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
