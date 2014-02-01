@@ -92,7 +92,7 @@ struct node* add_to_counter_list(int val)
     return ptr;
 }
 
-int get_in_counter_list(int val, struct node **prev) {
+struct test_struct*  get_in_counter_list(int val, struct node **prev) {
     struct node *ptr = n_head;
     struct node *tmp = NULL;
 
@@ -457,8 +457,8 @@ int main(int argc, char* argv[]) {
 
     print_counter_list();
 
-    int g = get_in_counter_list(1, NULL);
-    printf("looking the the elemnt at 1 and got %d\n", g);
+    ptr = get_in_counter_list(1, NULL);
+    printf("looking the the elemnt at 1 and got %d\n", index);
 
     /* could not create thread */
     if(rc){
