@@ -96,8 +96,7 @@ void incNode(struct node **node, int pos){
     (inc->index) = temp;
 }
 
-
-struct node*  get_in_list(int val, struct node **prev) {
+struct node* get_in_list(int val, struct node **prev) {
     struct node *ptr = head;
     struct node *tmp = NULL;
     for (int i = 1; i < val; i++) {
