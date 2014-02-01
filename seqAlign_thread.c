@@ -48,7 +48,6 @@ int numBlocks_x, numBlocks_y;
 int** queued;
 
 struct node* create_list(int index, int id) {
-    printf("\n creating node_list with headnode as [%d]\n",val);
     struct node *ptr = (struct node*)malloc(sizeof(struct node));
     if(NULL == ptr)
     {
@@ -68,8 +67,6 @@ struct node* add_to_list(int index, int id)
     if(NULL == head){
         return (create_list(index, id));
     } //if
-
-        printf("\n Adding node to end of list with value [%d]\n",val);
    
     struct node *ptr = (struct test_struct*)malloc(sizeof(struct node));
     
@@ -91,9 +88,6 @@ struct node* add_to_list(int index, int id)
 struct test_struct*  get_in_list(int val, struct node **prev) {
     struct node *ptr = head;
     struct node *tmp = NULL;
-
-    printf("\n Searching the list for index [%d] \n",val);
-
     for (int i = 1; i < val; i++) {
             tmp = ptr;
             ptr = ptr->next;
