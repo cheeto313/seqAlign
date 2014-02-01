@@ -122,11 +122,11 @@ struct node* search_in_counter_list(int val, struct node **prev)
 }
 
 void print_counter_list(void) {
-    struct node *ptr = head;
+    struct node *ptr = n_head;
 
     printf("\n -------Printing list Start------- \n");
     while(ptr != NULL) {
-        printf("\n [%d] \n",ptr->val);
+        printf("\n [%d] \n",ptr->index);
         ptr = ptr->next;
     }
     printf("\n -------Printing list End------- \n");
