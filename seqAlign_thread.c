@@ -47,8 +47,6 @@ int numBlocks_x, numBlocks_y;
 
 int** queued;
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
 struct node* create_list(int index, int id) {
     struct node *ptr = (struct node*)malloc(sizeof(struct node));
     if(NULL == ptr)
@@ -81,11 +79,26 @@ struct node* add_to_list(int index, int id)
     ptr->id = id;
     ptr->next = NULL;
     
-        curr->next = ptr;
-        curr = ptr;
+    curr->next = ptr;
+    curr = ptr;
 
     return ptr;
 }
+
+struct node* get_in_list(int val, struct node **prev) {
+    struct node *ptr = head;
+    struct node *tmp = NULL;
+    for (int i = 1; i < val; i++) {
+      tmp = ptr;
+      ptr = ptr->next;
+    }//for
+
+    if (prev) {
+      *prev = tmp;
+    }
+    return ptr;
+} //get_in_counter_list
+
 
 void incNode(struct node **node, int pos){
     struct node *inc = get_in_list(pos, NULL);
@@ -96,25 +109,11 @@ void incNode(struct node **node, int pos){
     (inc->index) = temp;
 }
 
-struct node* get_in_list(int val, struct node **prev) {
-    struct node *ptr = head;
-    struct node *tmp = NULL;
-    for (int i = 1; i < val; i++) {
-            tmp = ptr;
-            ptr = ptr->next;
-    }//for
-
-
-    	if (prev) 
-            *prev = tmp;
-             return ptr;
-} //get_in_counter_list
-
 void print_list(void) {
     struct node *ptr = head;
 
     printf("\n -------Printing list Start------- \n");
-    while(ptr != NULL) {
+    while(ptr != NULL) {    
         printf("\n index [%d] \n",ptr->index);
         printf("\n id [%d] \n",ptr->id);
         ptr = ptr->next;
@@ -263,31 +262,42 @@ void doWork(void* threadInfo) {
 }
 
 void increment(int id, int counter){
-
+	
 	counter++; //increment the counter
 
 	//if a new thread can be made
 	if (counter == 2 && id < strlen(seq1)){
 
-		    printf("thread %d Created!\n", id+1);
-		
-		 int        rc;         		/* return value                           */
-	     pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
+	    printf("thread %d Created!\n", id+1);
+	    int        rc;         		/* return value                           */
+	    pthread_t  thread_id = id + 1;     	/* thread's ID (just an integer)          */
 
-		 struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
-   		 info -> id = id + 1;
-    	 info -> counter = 1;
+	    struct threadInfo *info = malloc(sizeof(struct threadInfo)); 
+	    info -> id = id + 1;
+	    info -> counter = 1;
 
 	    /* create a new thread that will execute 'PrintHello' */
-	     rc = pthread_create(&thread_id, NULL, doWork, info); 
+	    rc = pthread_create(&thread_id, NULL, doWork, info); 
 
-		 pthread_mutex_lock(&mutex);
 	    /* could not create thread */
 	    if(rc){
 	        printf("\n ERROR: return code from pthread_create is %d \n", rc);
 	        exit(1);
 	    }
-	}//if
+	}
+	
+	while(true){
+	    __sync_fetch_and_add(&counter, 0);
+	    printf("lol what\n");
+	    if(counter >= 1 && (id != 1)){
+	      break;
+	    } else {
+	      wait(0);
+	    }
+	}
+	
+	
+	/*if
 
 	//If parent thread is still working on the data above
 	//Then lock itself
@@ -305,6 +315,7 @@ void increment(int id, int counter){
 	if(counter > strlen(seq2)){
 	 	pthread_cancel(pthread_self());
 	}//if
+	*/
 }//increment
 
 
@@ -378,7 +389,8 @@ int main(int argc, char* argv[]) {
 
     for(i = 5; i<10; i++)
         add_to_list(i, i*10);
-
+    print_list();
+    
     ptr = get_in_list(1, NULL);
     printf("looking the the index at 1 and got %d\n", ptr->index);
     printf("looking the the id at 1 and got %d\n", ptr->id);
